@@ -1,0 +1,54 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'java'
+    id 'war'
+    id 'test-report-aggregation' // <1>
+}
+
+group 'com.example'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'war'
+
+war {
+    baseName = 'game-server'
+    version = '0.0.1'
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('testAggregateTestReport', TestReport)
+}
+
+
+configurations {
+    providedRuntime
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    logbackVersion = '1.2.11'
+    elasticSearchVersion  = "8.4.3"
+}
+
+dependencies {
+
+    implementation project(":internal-module")
+
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.0-rc2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.4'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0-rc2'
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    implementation 'org.slf4j:jul-to-slf4j:2.0.3'
+    implementation "ch.qos.logback:logback-core:${logbackVersion}",
+            "ch.qos.logback:logback-classic:${logbackVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
