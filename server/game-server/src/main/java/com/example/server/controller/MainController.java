@@ -2,43 +2,45 @@ package com.example.server.controller;
 
 
 import com.example.model.*;
+import com.example.server.exceptions.*;
 import com.example.server.model.*;
+import com.example.util.*;
+import org.slf4j.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 
 @RestController
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class MainController {
 
-    private static final Integer STUB_gameID = 1;
-    private static final Integer STUB_playerID = 1001;
-    private static final Integer STUB_playerID2 = 1002;
+    private static final Logger logger;
 
-    private static final Integer STUB_playerID3 = 1003;
+    private static GamesController gamesController;
+    private static PlayersController playersController;
 
-    private static GamesController gamesController = new GamesController();
-
-    private static PlayersController playersController = new PlayersController();
-    /////////////////////////////////////////////
-    //
-    // Game calls
-
-
+    // Create Game with initialized GamesController, PlayersController
     static {
-        GamesController.createGame(GameDesignVars.GAME_LOBBY_ID);
+        logger = LoggerFactory.getLogger(MainController.class);
+        PrintUtils.green(String.format("STATIC BLOCK IN class/logger = %s", MainController.class.toString()));
+//        gamesController = new GamesController();
+//        playersController = new PlayersController();
+//        GamesController.createGame(GameDesignVars.GAME_LOBBY_ID);
+//
+//        logger.info("Created new GameInstance(GameInstance.GameState.GAME_LOBBY, key , null) = {}",
+//                PrintUtils.green(String.format("GameDesignVars.GAME_LOBBY_ID = %s%n" +
+//                                "game state = %s%n",
+//                        GameDesignVars.GAME_LOBBY_ID,
+//                        gamesController.getGame(GameDesignVars.GAME_LOBBY_ID).getGameState()
+//                )));
     }
 
-    @GetMapping
-    public String defaultGreeting() {
-        return "Test greeting in MainController";
-    }
 
-
-    @GetMapping("/test/{test}")
-    public String getGreetings(@PathVariable("test") String gameId) {
-        return "get mapping /game/{gameId} " + gameId;
-    }
+    //===================================================================================================
+    //                          POST Mapping
+    //===================================================================================================
 
     /* createGame
      *
@@ -46,25 +48,69 @@ public class MainController {
      * receives the Player's data, which is automatically added to the GameInstance
      */
     @PostMapping("/game")
-    public GameInstance createGame(@RequestBody TemplePlayerData newPlayer) {
+    public GameInstance createGame(
+            @RequestBody // Annotation indicating a method parameter should be bound to the body of the web request.
+            TemplePlayerData newPlayer
+    ) throws Exception {
 
-        Integer ID = GameDesignVars.BAD_GAME_ID;
-// HACK:
-        // this will simply instantiate a GameInstance with GAME_LOBBY_ID
-        //		replacing the previous instance if there was one
-        if( GameDesignVars.ONLY_ONE_GAME ) {
-            ID = GameDesignVars.GAME_LOBBY_ID;
-            GamesController.createGame(ID);
+        if (newPlayer == null || newPlayer.getName() == null) {
+            throw new PlayerNotFoundException("Player information in Request Body cannot be null");
+        } else {
+            if(playersController == null) {
+                playersController = new PlayersController();
+            }
+            logger.info("Logging @PostMapping: /game, createGame {}%n{}",
+                    MainController.class.toString(),
+                    PrintUtils.green(String.format(" @PostMapping /game @RequestBody = " +
+                            "newPlayer.getPublicId = %s%n" +
+                            "newPlayer.getName() = %s%n" +
+                            "newPlayer.getState = %s%n" +
+                            "newPlayer.getFacing = %s%n",
+                    newPlayer.getPublicID(),
+                    newPlayer.getName(),
+                    newPlayer.getState(),
+                    newPlayer.getFacing()
+            )));
+        }
+
+        if(gamesController == null){
+            gamesController = new GamesController();
+            PrintUtils.green("GamesController initialized with default values (none?) ");
+        }
+
+        int sizeOfGamesMap = gamesController.getAllGames().size();
+        if(sizeOfGamesMap == 0){
+            PrintUtils.green("Games map is empty: size = 0");
         }
         else {
-
-            ID = GamesController.createGame();
+            PrintUtils.green(String.format("Games map is not empty: size = %s", sizeOfGamesMap));
         }
-        GameInstance newGame = gamesController.getGame(ID);
-        newGame.addPlayer(newPlayer);
+
+
+        GameInstance game = gamesController.getAllGames() == null || gamesController.getAllGames().size() == 0 ?
+                gamesController.getGame(GamesController.createNewGame()) :
+                gamesController.getAllGames().stream().toList().get(0);
+
+
+        PrintUtils.green(String.format("" +
+                        "Game ID = %s, Game State = %s, Players in Game = %s",
+                game.getID(),
+                game.getGameState(),
+                game.getAllPlayers()
+        ));
+
+        int ID = game.getID();
+
+        game.addPlayer(newPlayer);
         PlayersController.addPlayer(newPlayer);
 
-        return newGame;
+        PrintUtils.green(String.format("GameInstance = %s , Added Player in GameInstance = %s, Added Player in PlayersController = %s",
+                game.getID(),
+                game.getAllPlayers().stream().toList().contains(newPlayer),
+                PlayersController.getPlayer(newPlayer.getPublicID())
+                ));
+
+        return game;
     }
 
 
@@ -75,41 +121,100 @@ public class MainController {
      * if successful return the current GameInstance
      */
     @PostMapping("/game/{gameID}")
-    public GameInstance joinGame(@PathVariable Integer gameID, @RequestBody TemplePlayerData newPlayer) {
+    public GameInstance joinGame(
+            @PathVariable Integer gameID,
+            @RequestBody TemplePlayerData newPlayer) throws PlayerNotFoundException {
 
-
-        if( newPlayer == null) {
-            // TODO: Create an Error response
-            //		see examples: https://www.amitph.com/spring-rest-api-custom-error-messages/
-            return null;
+        if (newPlayer == null || newPlayer.getPublicID() == 0) {
+            throw new PlayerNotFoundException("Player information in Request Body cannot be null");
+        } else {
+            playersController = new PlayersController();
+            logger.info("Logging @PostMapping: /game/{gameID}, joinGame(@PathVariable Integer gameID = {}, @RequestBody TemplePlayerData newPlayer = {}%n{}",
+                    gameID,
+                    newPlayer,
+                    PrintUtils.green(String.format(" @PostMapping /game @RequestBody = " +
+                            "newPlayer.getPublicId = %s%n" +
+                            "newPlayer.getName() = %s%n" +
+                            "newPlayer.getState = %s%n" +
+                            "newPlayer.getFacing = %s%n",
+                    newPlayer.getPublicID(),
+                    newPlayer.getName(),
+                    newPlayer.getState(),
+                    newPlayer.getFacing()
+            )));
         }
-        System.out.println("\twith gameID: " + gameID + ", playerID: " + newPlayer.getPublicID());
+
+        if (gameID == null) {
+            throw new GameInstanceNotFoundException("Game Instance Not Found");
+        } else {
+            gamesController = new GamesController();
+            GameInstance game = gamesController.getGame(gameID);
+            PrintUtils.green(String.format("@PostMapping /game/{gameID} @RequestBody = " +
+                            "game.getID() = %s%n" +
+                            "game.getGameState() = %s%n" +
+                            "game.getAllPlayers().size() = %s%n",
+                    game.getID(),
+                    game.getGameState(),
+                    game.getAllPlayers().size()
+            ));
+        }
+
 
         newPlayer.setState(PlayerData.State.IN_LOBBY);
         PlayersController.addPlayer(newPlayer);
-
         GameInstance game = gamesController.getGame(gameID);
-        if( game == null) {
-            // TODO: Create an Error response
-            //		see examples: https://www.amitph.com/spring-rest-api-custom-error-messages/
-            return null;
+
+        if (game == null) {
+            PrintUtils.green(String.format("game == null, gameID = %s", gameID));
+            throw new GameInstanceNotFoundException("Game ID Not Found" + gameID);
         }
 
-        if( !game.addPlayer(newPlayer) ) {
-
-            // TODO: Create an Error response
-            //		see examples: https://www.amitph.com/spring-rest-api-custom-error-messages/
-
-
-            // NOTE: this usually means that the player was already in the game.
-            //		But because we probably won't implement leaveGame() for the
-            //		first iteration, we'll go ahead and return the game
-//			return null;
+        if (!game.addPlayer(newPlayer)) {
+            PrintUtils.green(String.format("!game.addPlayer(newPlayer). newPlayer = %s", gameID));
+            throw new PlayerNotFoundException("Cant add player to game" + gameID);
         }
-
         return game;
     }
 
+
+    /* createPlayer
+     *
+     * creates and returns a PlayerData object
+     * with:
+     * 		PrivateID set for a player's own use with the server
+     * 		PublicID set for opponents to refer to the player
+     */
+    @PostMapping("/player")
+    public PlayerData createPlayer(
+            @RequestParam(value = "name", defaultValue = "") String name) throws PlayerNotFoundException {
+
+        if (name == null || name.isBlank()) {
+            throw new PlayerNotFoundException("Player information in Request Body cannot be null");
+        } else {
+            if(playersController == null) {
+                playersController = new PlayersController();
+            }
+            PrintUtils.green(String.format("@PostMapping: /player, @RequestParam value: name = %s",
+                    name
+            ));
+        }
+
+        Integer ID = PlayersController.createPlayer();
+
+        PlayerData newPlayer = PlayersController.getPlayer(ID);
+
+        PrintUtils.green(String.format("PlayersController.getPlayer(ID): newPlayer = %s", newPlayer.getPublicID()));
+        newPlayer.setPublicID(ID);
+        newPlayer.setName(name);
+
+
+        return newPlayer;
+    }
+
+
+    //===================================================================================================
+    //                          Delete Mapping
+    //===================================================================================================
 
     /* leaveGame
      *
@@ -120,19 +225,24 @@ public class MainController {
      */
     @DeleteMapping("/game/{gameID}/{playerID}")
     public Collection<GameInstance> leaveGame(@PathVariable Integer gameID, @PathVariable Integer playerID) {
-        System.out.println("ServerApplication.leaveGame() called with gameID: " +
-                gameID + ", playerID: " + playerID);
 
         GameInstance game = gamesController.getGame(gameID);
+        boolean removed = game.removePlayer(playerID);
 
-        game.removePlayer(playerID);
-        if( game.isEmpty()) {
+        PrintUtils.green(String.format("player id = %s, removed = %s", playerID, removed));
+
+        if (game.isEmpty()) {
             gamesController.removeGame(gameID);
+            PrintUtils.green("game.isEmpty() removing game instance");
         }
 
         return gamesController.getAllGames();
     }
 
+
+    //===================================================================================================
+    //                          PUT Mapping
+    //===================================================================================================
 
 /*
 	// if no gameID is supplied then return all games
@@ -171,86 +281,51 @@ public class MainController {
 	}
 */
 
-
-    // TODO: this is really for debugging purposes and would be a security concern in a final product
-    // return all games
-    @GetMapping("/game")
-    public Collection<GameInstance> getAllGames() {
-        System.out.println("ServerApplication.getAllGames() called");
-
-        return gamesController.getAllGames();
-    }
-
-
-    //
-    @GetMapping("/game/{id}")
-    public GameInstance getGame(@PathVariable String id) {
-
-        int gameID = 0;
-        try {
-            gameID = Integer.parseInt(id);
-        }
-        catch (NumberFormatException ex){
-            ex.printStackTrace();
-        }
-
-        return gamesController.getGame(gameID);
-    }
-
-
     // owner of the room clicks Start Game button or Game Ends, etc
     // 		(for this first iteration, everyone in the lobby has Start Game privileges,
     //		since we're skipping the CreateGame step and there's only one GameID to JoinGame)
     //
-//	@PutMapping("/game/{id}")
-//	public GameInstance updateGameState(@PathVariable Integer gameID, @RequestBody GameState state) {
-//		System.out.println("ServerApplication.updateGameState() called with gameID: " +
-//				gameID + ", state: " + state);
-
-    // HACK: for some reason passing in state is messing up the ID, so hardcoding the state
     @PutMapping("/game/{id}")
-    public GameInstance updateGameState(@PathVariable Integer gameID) {
-//		public GameInstance updateGameState(@PathVariable String ID) {
-//		public GameInstance updateGameState(@PathVariable String ID, @RequestParam(value = "state", defaultValue = "IN_GAME") String state) {
-        System.out.println("ServerApplication.updateGameState() called with gameID: " + gameID + ",");
+    public GameInstance updateGameState(@PathVariable Integer gameID, @RequestBody GameInstance.GameState state) throws Exception {
+        if (gameID == null || gamesController.getGame(gameID) == null) {
+            throw new GameInstanceNotFoundException("Game ID or Game Instance using ID is null");
+        }
 
-//		Integer gameID = 1;
-//		try {
-//			gameID = Integer.valueOf(ID);
-//		}
-//        catch (NumberFormatException ex){
-//            ex.printStackTrace();
-//        }
+        if (state == null) {
+            throw new Exception("Stub for Invalid GameState Exception");
+        }
+        logger.info("updateGameState(): gameID = {} gameState = {}", gameID, state);
 
-        // HACK: for some reason passing in state is messing up the ID, so hardcoding the state
-//		GameState gameState = GameState.valueOf(state);
-        GameInstance.GameState gameState = GameInstance.GameState.ENTERING_GAME;
-        System.out.println("\tstate: " + gameState);
+//        GameInstance.GameState gameState = GameInstance.GameState.ENTERING_GAME;
+
+        GameInstance.GameState gameState = state;
+
+        PrintUtils.green(String.format("\tstate: %s" + gameState));
 
         GameInstance game = gamesController.getGame(gameID);
-        game.setGameState(gameState);
-
 
         // different game states will change Player's state as appropriate
         PlayerData.State playersState = null;
 
 
-        switch(gameState) {
+        switch (state) {
 
-            case GAME_STARTING -> {}
+            case GAME_STARTING -> {
+                game.setGameState(gameState);
+            }
 
-                //NOTE:  for this first iteration, we're skipping the starting countdown
-                //		and loading phase and going directly to IN_GAME
+            //NOTE:  for this first iteration, we're skipping the starting countdown
+            //		and loading phase and going directly to IN_GAME
             case ENTERING_GAME -> {
                 game.setGameState(GameInstance.GameState.IN_GAME);
             }
 
             case IN_GAME -> {
                 // fall through to GameState.ENTERING_GAME
-                playersState =  PlayerData.State.RUNNING;
+                playersState = PlayerData.State.RUNNING;
 
                 // need to set all players spawn points
-                MapManager.setPlayersStartingLocations( game.getAllPlayers() );
+                MapManager.setPlayersStartingLocations(game.getAllPlayers());
             }
 
             case GAME_LOBBY -> {
@@ -263,161 +338,113 @@ public class MainController {
             }
 
             default -> {
-                System.out.println("\tERROR: Unknown state: " + gameState  + ". returning null");
+                throw new Exception("\tUnknown State Exception: ERROR: Unknown state: " + gameState + ". returning null");
             }
-
         }
 
+        PrintUtils.green(String.format("PlayerState = %s ", playersState));
 
-        if( playersState != null) {
-
-            for(PlayerData player : game.getAllPlayers()) {
-                player.setState(playersState);
-            }
+        for (PlayerData player : game.getAllPlayers()) {
+            player.setState(playersState);
         }
 
         return game;
     }
 
 
-    // SUPER HACK: I can't get the gameID to show up for updateGameState so I'm just create a
-    // whole new version with no parameters
+//    @PutMapping("/game/{id}")
+//    public GameInstance updateGameState(@PathVariable Integer gameID) {
+////		public GameInstance updateGameState(@PathVariable String ID) {
+////		public GameInstance updateGameState(@PathVariable String ID, @RequestParam(value = "state", defaultValue = "IN_GAME") String state) {
+//        logger.info("ServerApplication.updateGameState() called with gameID: {}",PrintUtils.green(gameID));
+//
+//        // HACK: for some reason passing in state is messing up the ID, so hardcoding the state
+//
+//        GameInstance.GameState gameState = GameInstance.GameState.ENTERING_GAME;
+//        logger.info("gameState: {}", PrintUtils.green(gameState));
+//
+//
+//        GameInstance game = gamesController.getGame(gameID);
+//        game.setGameState(gameState);
+//
+//
+//        // different game states will change Player's state as appropriate
+//        PlayerData.State playersState = null;
+//
+//
+//        switch (gameState) {
+//
+//            case GAME_STARTING -> {
+//            }
+//
+//            //NOTE:  for this first iteration, we're skipping the starting countdown
+//            //		and loading phase and going directly to IN_GAME
+//            case ENTERING_GAME -> {
+//                game.setGameState(GameInstance.GameState.IN_GAME);
+//            }
+//
+//            case IN_GAME -> {
+//                // fall through to GameState.ENTERING_GAME
+//                playersState = PlayerData.State.RUNNING;
+//
+//                // need to set all players spawn points
+//                MapManager.setPlayersStartingLocations(game.getAllPlayers());
+//            }
+//
+//            case GAME_LOBBY -> {
+//                playersState = PlayerData.State.IN_LOBBY;
+//            }
+//
+//            case CLOSING -> {
+//                playersState = PlayerData.State.MAIN_MENU;
+//                gamesController.removeGame(gameID);
+//            }
+//
+//            default -> {
+//                System.out.println("\tERROR: Unknown state: " + gameState + ". returning null");
+//            }
+//
+//        }
+//
+//
+//        if (playersState != null) {
+//
+//            for (PlayerData player : game.getAllPlayers()) {
+//                player.setState(playersState);
+//            }
+//        }
+//
+//        return game;
+//    }
+
+
     @PutMapping("/startgame/")
     public GameInstance startGame() {
-        System.out.println("ServerApplication.startGame() called");
 
-        // HACK: for some reason passing in state is messing up the ID, so hardcoding the state
-//			GameState gameState = GameState.valueOf(state);
         GameInstance.GameState gameState = GameInstance.GameState.ENTERING_GAME;
-        System.out.println("\tstate: " + gameState);
+        PrintUtils.green(String.format("PutMapping: /startgame GameState =  %s", gameState));
 
-// HACK: can't get gameID to pass in so hardcoding it:
+
         Integer gameID = GameDesignVars.GAME_LOBBY_ID;
 
         GameInstance game = gamesController.getGame(gameID);
         game.setGameState(gameState);
 
-//		switch(gameState) {
-//			case IN_GAME:
-        PlayerData.State playersState =  PlayerData.State.RUNNING;
+
+        PlayerData.State playersState = PlayerData.State.RUNNING;
 
         // need to set all players spawn points
-        MapManager.setPlayersStartingLocations( game.getAllPlayers() );
+        MapManager.setPlayersStartingLocations(game.getAllPlayers());
 
-        if( playersState != null) {
+        if (playersState != null) {
 
-            for(PlayerData player : game.getAllPlayers()) {
+            for (PlayerData player : game.getAllPlayers()) {
                 player.setState(playersState);
             }
         }
-
+        PrintUtils.green(String.format("PutMapping: /startgame: game.getAllPlayers() = %s", game.getAllPlayers()));
         return game;
     }
-
-
-    /////////////////////////////////////////////
-    //
-    // Player calls
-
-
-    /* createPlayer
-     *
-     * creates and returns a PlayerData object
-     * with:
-     * 		PrivateID set for a player's own use with the server
-     * 		PublicID set for opponents to refer to the player
-     */
-    @PostMapping("/player")
-    public PlayerData createPlayer(@RequestParam(value = "name", defaultValue = "") String name) {
-//		System.out.println("ServerApplication.createPlayer() called with name = " + name);
-        System.out.println("ServerApplication.createPlayer() called");
-
-        Integer ID = PlayersController.createPlayer();
-        PlayerData newPlayer = PlayersController.getPlayer(ID);
-        newPlayer.setName(name);
-
-        return newPlayer;
-    }
-
-    /*
-     * gets all players
-     * This really only exists for admin/debugging purposes
-     * normally the URI looks like "/player/{id}" in which getPlayer is called
-     */
-    @GetMapping("/player")
-//	public Collection<PlayerData> player(@RequestParam(value = "id", defaultValue = "0") String id) {
-    public Collection<PlayerData> getAllplayers() {
-
-        System.out.println("ServerApplication.getAllplayers() called. ");
-//
-//		Integer playerID = 0;
-//		try {
-//			playerID = Integer.valueOf(id);
-//		}
-//        catch (NumberFormatException ex){
-//            ex.printStackTrace();
-//        }
-//
-//		if( playerID == null || playerID == 0 ) {
-//			System.out.println("no playerID = " + playerID + ". getting all players.");
-
-        // TODO:
-        // 	should normally return an error code for invalid param or data not found
-
-        // STUB!
-//			playerID = STUB_playerID;
-
-        return PlayersController.getAllPlayers();
-//		}
-//		else {
-//			System.out.println("getPlayer playerID = " + playerID);
-//
-//			Collection<PlayerData> playerList = new ArrayList<PlayerData>();
-//			PlayerData player = PlayersController.getPlayer(playerID);
-//			playerList.add(player);
-//			return playerList;
-//
-//		}
-
-//PlayerData ps = PlayersController.getPlayer(playerID);
-//
-//System.out.println("ServerApplication.player() returning PlayerData: " + ps);
-//		return ps;
-
-    }
-
-
-    /* getPlayer
-     *
-     * gets player identified by id passed in
-     */
-    @GetMapping("/player/{id}")
-    public PlayerData getPlayer(@PathVariable String id) {
-
-        System.out.println("ServerApplication.getPlayer() called with id: " + id);
-
-        Integer playerID = 0;
-        try {
-            playerID = Integer.valueOf(id);
-        }
-        catch (NumberFormatException ex){
-            ex.printStackTrace();
-        }
-
-        if( playerID == null || playerID == 0 ) {
-            System.out.println("bad playerID = " + playerID + ". returning 1st player.");
-
-            // TODO:
-            // 	should normally return an error code for invalid param or data not found
-
-//			// STUB!
-//			playerID = STUB_playerID;
-        }
-
-        return PlayersController.getPlayer(playerID);
-    }
-
-
 
     /* updatePlayer
      *
@@ -426,54 +453,88 @@ public class MainController {
      * if successful return GameInstance - i.e. latest updated data
      */
     @PutMapping("/player/{gameID}")
-    public GameInstance updatePlayer(@PathVariable Integer gameID, @RequestBody TemplePlayerData player) {
-//		System.out.println("ServerApplication.updatePlayer() called with gameID: " +
-//				gameID + ", playerID: " + player.getPublicID());
-
+    public GameInstance updatePlayer(@PathVariable Integer gameID, @RequestBody TemplePlayerData player) throws PlayerNotFoundException {
+        if (gameID == null || gamesController.getGame(gameID) == null) {
+            throw new GameInstanceNotFoundException("Game ID is null or Game ID is invalid");
+        }
+        if (player == null || PlayersController.getPlayer(player.getPublicID()) == null) {
+            throw new PlayerNotFoundException("Player ID is null or Player ID in invalid");
+        }
         GameInstance game = gamesController.getGame(gameID);
         game.updatePlayer(player);
 
         PlayersController.updatePlayer(player);
 
-        if( game.isEmpty()) {
+        if (game.isEmpty()) {
             gamesController.removeGame(gameID);
         }
-
+        PrintUtils.green(String.format("PutMapping: /player/{gameID}: RequestBody = %s", player));
         return game;
     }
 
-    // STUB Methods for Testing!
-    //
 
-    private static void STUB_createSampleGame() {
+    //===================================================================================================
+    //                          GET MAPPING
+    //===================================================================================================
+    // return all games
+    @GetMapping("/game")
+    public Collection<GameInstance> getAllGames() {
+        Collection<GameInstance> allGames = gamesController.getAllGames();
+        if(allGames == null || allGames.size() == 0) {
+            throw new GameInstanceNotFoundException("No Game Instances Found");
+        }
 
-
-        // STUBS!
-        // TODO: Creating just a single game instance for early testing purposes
-        GamesController.createGame();
-        //GameInstance game = gamesController.getGame(STUB_gameID);
-        System.out.println("ServerApplication.STUB_createSampleGame() created demo game. id = " + GameDesignVars.GAME_LOBBY_ID);
-
-//		STUB_playerID = PlayersController.createPlayer();
-        PlayerData player1 = new TemplePlayerData("Player1");
-        player1.setPublicID(STUB_playerID);
-        PlayersController.addPlayer(player1);
-        //System.out.println("ServerApplication.main() created PlayerData: " + player1);
-
-//		STUB_playerID2 = PlayersController.createPlayer();
-        PlayerData player2 = new TemplePlayerData("Player2");
-        player2.setPublicID(STUB_playerID2);
-        PlayersController.addPlayer(player2);
-
-        gamesController.addPlayer(STUB_gameID, player1);
-        gamesController.addPlayer(STUB_gameID, player2);
+        PrintUtils.green(String.format("GetMapping: /game: getAllGames() = %s", allGames));
+        return gamesController.getAllGames();
     }
 
 
-    // easy way to test server is running
-    //
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
+    @GetMapping("/game/{id}")
+    public GameInstance getGame(@PathVariable String id) {
+
+        if(id == null || id.isBlank()) {
+            PrintUtils.green(String.format("GetMapping: /game/{id} getGame(@PathVariable String id = %s)", id));
+            throw new GameInstanceNotFoundException("Game ID not found: id = " + id);
+        }
+
+        int gameID = Integer.parseInt(id);
+
+        return gamesController.getGame(gameID);
     }
+
+
+    /*
+     * gets all players
+     */
+    @GetMapping("/player")
+    public Collection<PlayerData> getAllplayers() {
+        PrintUtils.green(String.format("GetMapping: /player gets all players. String id = %s", PlayersController.getAllPlayers()));
+
+        return PlayersController.getAllPlayers();
+    }
+
+
+    /* getPlayer
+     *
+     * gets player identified by id passed in
+     */
+    @GetMapping("/player/{id}")
+    public Collection<PlayerData> player(@RequestParam(value = "id", defaultValue = "0") String id) throws PlayerNotFoundException {
+
+        if (id == null || id.isBlank() || id.hashCode() < 1) {
+            throw new PlayerNotFoundException("bad playerID = " + id);
+        }
+
+        int playerID = Integer.parseInt(id);
+
+        if (playerID == 0) {
+            throw new PlayerNotFoundException("bad playerID = " + id);
+        }
+
+        Collection<PlayerData> playerList = new ArrayList<PlayerData>();
+        PlayerData player = PlayersController.getPlayer(playerID);
+        playerList.add(player);
+        return playerList;
+    }
+
 }

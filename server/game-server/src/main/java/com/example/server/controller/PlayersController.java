@@ -1,35 +1,24 @@
 package com.example.server.controller;
 
 import com.example.model.*;
-import com.example.server.exceptions.*;
-import com.example.server.model.*;
+import com.example.util.*;
 import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.*;
 
 import java.util.*;
 
-@RestController
 public class PlayersController {
+    private static final Logger logger;
 
     private static HashMap<Integer, PlayerData> players;
-    private static Random rand = new Random();
+    private static final Random rand;
 
-    @Autowired
-    PlayerService playerService;
-
-
-    @GetMapping("/actor/{id}")
-    public String getActorName(@PathVariable("id") int id) {
-        try {
-            return playerService.getPlayer(id);
-        } catch (PlayerNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor Not Found", ex);
-        }
+    static {
+        logger = LoggerFactory.getLogger(PlayersController.class);
+        PrintUtils.cyan(String.format("STATIC BLOCK IN class/logger = %s", PlayersController.class.toString()));
+        players = new HashMap<>();
+        PrintUtils.cyan("players == null " + players);
+        rand = new Random();
     }
-
 
     public static Integer createPlayer() {
         PlayerData player = new TemplePlayerData();
@@ -38,8 +27,7 @@ public class PlayersController {
         int privateKey = createNewKey();
         player.setPrivateID(privateKey);
 
-// NOTE: in future this should be by private key which only the player it belongs to
-//		will know. But for simplicity we're just using publicKey for everything.
+// private key which only the player it belongs to will know.
 //		players.put(privateKey, player);
         players.put(publicKey, player);
 
@@ -52,12 +40,25 @@ public class PlayersController {
         while( players.containsKey(key) ) {
             key = rand.nextInt();
         }
+
+        PrintUtils.titleCyan("returning public key: " + key);
+        return key;
+    }
+
+    private static Integer createNewPrivateKey() {
+        int key = rand.nextInt();
+        while( players.containsKey(key) ) {
+            key = rand.nextInt();
+        }
+        PrintUtils.titleCyan("returning private key: " + key);
         return key;
     }
 
     public static PlayerData getPlayer(Integer ID) {
 
-        System.out.println("PlayersController.getPlayer() called. id = " + ID);
+        PlayerData playerData = players.get(ID);
+
+        PrintUtils.red(String.format(" PlayerData.players.get(%s) = %s", ID, playerData));
 
         return players.get(ID);
     }
@@ -65,8 +66,9 @@ public class PlayersController {
     // Add/Update/Remove Players:
 
     public static boolean addPlayer(PlayerData player) {
-
-        if( player == null )	return false;
+        if(player == null) {
+            return false;
+        }
 
         return players.put(player.getPublicID(), player) == null;
     }
@@ -84,7 +86,6 @@ public class PlayersController {
     }
 
     public static Collection<PlayerData> getAllPlayers() {
-
         return players.values();
     }
 

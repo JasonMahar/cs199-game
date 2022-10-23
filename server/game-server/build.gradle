@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id 'war'
     id 'test-report-aggregation' // <1>
+    id "com.bmuschko.tomcat" version "2.7.0"
 }
 
 group 'com.example'
@@ -45,10 +46,6 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0-rc2'
 
     implementation('org.springframework.boot:spring-boot-starter-web')
-
-    implementation 'org.slf4j:jul-to-slf4j:2.0.3'
-    implementation "ch.qos.logback:logback-core:${logbackVersion}",
-            "ch.qos.logback:logback-classic:${logbackVersion}"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

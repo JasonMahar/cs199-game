@@ -24,7 +24,7 @@
             <appender-ref ref="STDOUT"/>
             <appender-ref ref="SAVE-TO-FILE"/>
         </root>
-        <logger name="org.example.server" additivity="false" level="debug">
+        <logger name="org.example.game-server" additivity="false" level="debug">
             <appender-ref ref="STDOUT"/>
             <appender-ref ref="SAVE-TO-FILE"/>
         </logger>
