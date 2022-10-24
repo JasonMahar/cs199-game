@@ -1,0 +1,639 @@
+23-10-2022 17:56:20.925 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning -
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 17:56:20.949 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 26160 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 17:56:20.951 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 17:56:22.883 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 17:56:22.897 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 17:56:22.899 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 17:56:22.899 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 17:56:23.048 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 17:56:23.049 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2068 ms
+23-10-2022 17:56:23.152 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 17:56:23.765 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 17:56:23.792 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50480 (http) with context path ''
+23-10-2022 17:56:23.801 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 3.353 seconds (JVM running for 4.938)
+23-10-2022 17:56:24.076 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 17:56:24.076 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 17:56:24.078 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 17:56:24.131 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:00:59.039 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:00:59.100 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 7616 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:00:59.102 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:01:02.693 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:01:02.706 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:01:02.707 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:01:02.708 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:01:02.950 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:01:02.950 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 3792 ms
+23-10-2022 18:01:03.183 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:01:04.273 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:01:04.293 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50497 (http) with context path ''
+23-10-2022 18:01:04.307 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 6.221 seconds (JVM running for 9.851)
+23-10-2022 18:01:04.559 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:01:04.560 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:01:04.561 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:01:04.677 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:06:10.285 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:06:10.306 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 28756 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:06:10.307 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:06:12.608 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:06:12.622 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:06:12.623 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:06:12.624 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:06:12.776 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:06:12.777 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2411 ms
+23-10-2022 18:06:12.894 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:06:13.592 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:06:13.621 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50671 (http) with context path ''
+23-10-2022 18:06:13.632 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 4.177 seconds (JVM running for 6.755)
+23-10-2022 18:06:13.872 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:06:13.873 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:06:13.874 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:06:13.924 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:21:48.629 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:21:48.642 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 23560 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:21:48.643 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:21:50.628 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:21:50.652 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:21:50.654 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:21:50.655 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:21:50.886 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:21:50.887 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2219 ms
+23-10-2022 18:21:50.999 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:21:51.745 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:21:51.772 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50904 (http) with context path ''
+23-10-2022 18:21:51.783 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 3.583 seconds (JVM running for 5.349)
+23-10-2022 18:21:52.313 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:21:52.314 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:21:52.317 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 3 ms
+23-10-2022 18:21:52.434 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:23:34.153 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:23:34.179 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 25408 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:23:34.183 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:23:38.483 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:23:38.494 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:23:38.495 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:23:38.496 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:23:38.633 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:23:38.634 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 4412 ms
+23-10-2022 18:23:38.771 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:23:39.683 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:23:39.708 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50915 (http) with context path ''
+23-10-2022 18:23:39.724 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 6.324 seconds (JVM running for 8.362)
+23-10-2022 18:23:39.993 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:23:39.994 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:23:39.996 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:23:40.053 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:25:54.379 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:25:54.399 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 25360 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:25:54.402 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:25:56.469 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:25:56.484 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:25:56.485 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:25:56.485 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:25:56.643 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:25:56.644 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2209 ms
+23-10-2022 18:25:56.760 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:25:57.472 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:25:57.492 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50926 (http) with context path ''
+23-10-2022 18:25:57.501 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 3.623 seconds (JVM running for 5.408)
+23-10-2022 18:25:57.703 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:25:57.704 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:25:57.705 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:25:57.806 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:27:39.829 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:27:39.850 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 11376 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:27:39.852 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:27:41.485 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:27:41.497 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:27:41.497 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:27:41.498 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:27:41.604 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:27:41.605 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 1718 ms
+23-10-2022 18:27:41.731 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:27:42.337 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:27:42.378 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50934 (http) with context path ''
+23-10-2022 18:27:42.389 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 2.983 seconds (JVM running for 4.294)
+23-10-2022 18:27:42.589 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:27:42.589 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:27:42.591 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 2 ms
+23-10-2022 18:27:42.651 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:28:42.998 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:28:43.029 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 29736 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:28:43.031 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:28:45.768 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:28:45.780 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:28:45.780 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:28:45.781 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:28:46.026 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:28:46.026 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2914 ms
+23-10-2022 18:28:46.172 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:28:47.046 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:28:47.067 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50950 (http) with context path ''
+23-10-2022 18:28:47.092 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 5.016 seconds (JVM running for 7.741)
+23-10-2022 18:28:47.270 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:28:47.270 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:28:47.272 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:28:47.329 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:29:42.943 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:29:42.969 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 24460 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:29:42.972 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:29:46.921 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:29:46.936 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:29:46.938 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:29:46.939 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:29:47.109 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:29:47.110 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 4093 ms
+23-10-2022 18:29:47.271 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:29:48.610 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:29:48.630 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50958 (http) with context path ''
+23-10-2022 18:29:48.640 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 6.418 seconds (JVM running for 9.951)
+23-10-2022 18:29:48.898 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:29:48.898 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:29:48.901 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:29:49.022 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:30:42.772 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:30:42.813 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 28176 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:30:42.819 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:30:45.744 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:30:45.754 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:30:45.755 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:30:45.756 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:30:45.866 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:30:45.867 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2965 ms
+23-10-2022 18:30:45.964 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:30:46.697 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:30:46.713 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 50966 (http) with context path ''
+23-10-2022 18:30:46.725 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 5.173 seconds (JVM running for 7.764)
+23-10-2022 18:30:46.961 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:30:46.962 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:30:46.964 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:30:47.018 [http-nio-auto-1-exec-1] INFO  c.e.g.s.controller.MainController.createGame - Logging @PostMapping: /game, createGame class com.example.game.server.controller.MainController%n @PostMapping /game @RequestBody = newPlayer.getPublicId = 1
+newPlayer.getPrivateId = 1
+newPlayer.getName() = Stew
+newPlayer.getState = IN_LOBBY
+newPlayer.getFacing = 270.00
+
+23-10-2022 18:37:46.587 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:37:46.606 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 13804 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:37:46.607 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:37:48.759 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:37:48.775 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:37:48.776 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:37:48.777 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:37:48.933 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:37:48.933 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2296 ms
+23-10-2022 18:37:49.053 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:37:49.882 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:37:49.896 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64587 (http) with context path ''
+23-10-2022 18:37:49.905 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 3.864 seconds (JVM running for 6.353)
+23-10-2022 18:37:50.135 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:37:50.136 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:37:50.139 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 18:39:51.822 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 18:39:51.837 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 21408 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 18:39:51.839 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 18:39:53.564 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 18:39:53.577 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:39:53.577 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 18:39:53.578 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 18:39:53.699 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 18:39:53.699 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 1834 ms
+23-10-2022 18:39:53.810 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 18:39:54.471 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 18:39:54.509 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64619 (http) with context path ''
+23-10-2022 18:39:54.521 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 3.147 seconds (JVM running for 4.387)
+23-10-2022 18:39:54.770 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 18:39:54.771 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 18:39:54.772 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 19:02:02.026 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:02:02.039 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 27308 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:02:02.040 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:02:04.297 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:02:04.313 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:02:04.315 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:02:04.316 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:02:04.445 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:02:04.446 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2379 ms
+23-10-2022 19:02:04.642 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:02:05.314 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:02:05.352 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64850 (http) with context path ''
+23-10-2022 19:02:05.360 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 3.881 seconds (JVM running for 6.994)
+23-10-2022 19:02:05.472 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:02:05.473 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:02:05.474 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 19:02:05.727 [http-nio-auto-1-exec-4] INFO  c.e.g.s.e.InvalidPlayerFieldException.<clinit> - static initialization block: this.class/logger = class com.example.game.server.exceptions.InvalidPlayerFieldException
+23-10-2022 19:02:05.755 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.buildDefaultMergedContextConfiguration - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.game.server.controller.MainControllerTests], using SpringBootContextLoader
+23-10-2022 19:02:05.757 [Test worker] INFO  o.s.t.c.s.AbstractContextLoader.generateDefaultLocations - Could not detect default resource locations for test class [com.example.game.server.controller.MainControllerTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+23-10-2022 19:02:05.758 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils.detectDefaultConfigurationClasses - Could not detect default configuration classes for test class [com.example.game.server.controller.MainControllerTests]: MainControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+23-10-2022 19:02:05.769 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses - Found @SpringBootConfiguration com.example.game.server.ServerApplication for test class com.example.game.server.controller.MainControllerTests
+23-10-2022 19:02:05.771 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.getDefaultTestExecutionListenerClassNames - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+23-10-2022 19:02:05.772 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.getTestExecutionListeners - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@79e16dd9, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5fa9247b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@21ce3b22, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7cd25bf5, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@e2f6e13, org.springframework.test.context.support.DirtiesContextTestExecutionListener@18b30951, org.springframework.test.context.transaction.TransactionalTestExecutionListener@48f4264e, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2697c156, org.springframework.test.context.event.EventPublishingTestExecutionListener@533d7c61, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@53c40ed6, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3a6b94b6, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@22ee7fdc, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1a88d194, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6949cead, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@fe13916]
+23-10-2022 19:02:05.830 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:02:05.832 [Test worker] INFO  c.e.g.s.c.MainControllerTests.logStarting - Starting MainControllerTests using Java 17.0.4 on stews with PID 27308 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:02:05.832 [Test worker] INFO  c.e.g.s.c.MainControllerTests.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:02:06.497 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext.log - Initializing Spring TestDispatcherServlet ''
+23-10-2022 19:02:06.498 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet.initServletBean - Initializing Servlet ''
+23-10-2022 19:02:06.498 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet.initServletBean - Completed initialization in 0 ms
+23-10-2022 19:02:06.511 [Test worker] INFO  c.e.g.s.c.MainControllerTests.logStarted - Started MainControllerTests in 0.731 seconds (JVM running for 8.144)
+23-10-2022 19:03:15.076 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:03:15.126 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 20652 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:03:15.131 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:03:17.757 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:03:17.770 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:03:17.771 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:03:17.771 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:03:17.885 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:03:17.887 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2679 ms
+23-10-2022 19:03:17.997 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:03:18.581 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:03:18.599 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64856 (http) with context path ''
+23-10-2022 19:03:18.612 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 4.327 seconds (JVM running for 7.026)
+23-10-2022 19:03:18.809 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:03:18.809 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:03:18.811 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 2 ms
+23-10-2022 19:03:19.174 [http-nio-auto-1-exec-3] INFO  c.e.g.s.e.InvalidPlayerFieldException.<clinit> - static initialization block: this.class/logger = class com.example.game.server.exceptions.InvalidPlayerFieldException
+23-10-2022 19:03:19.217 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.buildDefaultMergedContextConfiguration - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.game.server.controller.MainControllerTests], using SpringBootContextLoader
+23-10-2022 19:03:19.220 [Test worker] INFO  o.s.t.c.s.AbstractContextLoader.generateDefaultLocations - Could not detect default resource locations for test class [com.example.game.server.controller.MainControllerTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+23-10-2022 19:03:19.221 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils.detectDefaultConfigurationClasses - Could not detect default configuration classes for test class [com.example.game.server.controller.MainControllerTests]: MainControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+23-10-2022 19:03:19.239 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses - Found @SpringBootConfiguration com.example.game.server.ServerApplication for test class com.example.game.server.controller.MainControllerTests
+23-10-2022 19:03:19.241 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.getDefaultTestExecutionListenerClassNames - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+23-10-2022 19:03:19.242 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper.getTestExecutionListeners - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@76f9e000, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7612116b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@1c05097c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@562f6681, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6f6f65a4, org.springframework.test.context.support.DirtiesContextTestExecutionListener@990b86b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3dea1ecc, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@105c6c9e, org.springframework.test.context.event.EventPublishingTestExecutionListener@40a7974, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@8d5da7e, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@65a4b9d6, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@16ef1160, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@41f90b10, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@67593f7b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2773504f]
+23-10-2022 19:03:19.297 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:03:19.302 [Test worker] INFO  c.e.g.s.c.MainControllerTests.logStarting - Starting MainControllerTests using Java 17.0.4 on stews with PID 20652 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:03:19.306 [Test worker] INFO  c.e.g.s.c.MainControllerTests.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:03:19.897 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext.log - Initializing Spring TestDispatcherServlet ''
+23-10-2022 19:03:19.898 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet.initServletBean - Initializing Servlet ''
+23-10-2022 19:03:19.898 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet.initServletBean - Completed initialization in 0 ms
+23-10-2022 19:03:19.907 [Test worker] INFO  c.e.g.s.c.MainControllerTests.logStarted - Started MainControllerTests in 0.659 seconds (JVM running for 8.321)
+23-10-2022 19:04:27.148 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:04:27.177 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 9056 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:04:27.184 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:04:31.474 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:04:31.486 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:04:31.487 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:04:31.488 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:04:31.723 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:04:31.724 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 4477 ms
+23-10-2022 19:04:31.861 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:04:33.689 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:04:33.729 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64864 (http) with context path ''
+23-10-2022 19:04:33.756 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 7.376 seconds (JVM running for 9.434)
+23-10-2022 19:04:34.072 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:04:34.072 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:04:34.074 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 19:04:34.213 [http-nio-auto-1-exec-1] INFO  c.e.g.s.e.InvalidPlayerFieldException.<clinit> - static initialization block: this.class/logger = class com.example.game.server.exceptions.InvalidPlayerFieldException
+23-10-2022 19:09:11.600 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:09:11.620 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 19740 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:09:11.620 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:09:15.218 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:09:15.249 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:09:15.249 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:09:15.249 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:09:15.415 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:09:15.416 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 3738 ms
+23-10-2022 19:09:15.517 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:09:16.455 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:09:16.478 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64878 (http) with context path ''
+23-10-2022 19:09:16.490 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 5.688 seconds (JVM running for 8.646)
+23-10-2022 19:09:16.755 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:09:16.755 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:09:16.755 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 0 ms
+23-10-2022 19:09:16.818 [http-nio-auto-1-exec-1] INFO  c.e.g.s.e.InvalidPlayerFieldException.<clinit> - static initialization block: this.class/logger = class com.example.game.server.exceptions.InvalidPlayerFieldException
+23-10-2022 19:12:22.532 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:12:22.577 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 26732 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:12:22.577 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:12:24.887 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:12:24.902 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:12:24.902 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:12:24.902 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:12:25.012 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:12:25.027 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2410 ms
+23-10-2022 19:12:25.142 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:12:26.086 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:12:26.111 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64894 (http) with context path ''
+23-10-2022 19:12:26.120 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 4.306 seconds (JVM running for 7.005)
+23-10-2022 19:12:26.354 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:12:26.356 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:12:26.359 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 2 ms
+23-10-2022 19:12:26.433 [http-nio-auto-1-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet].log - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException: Cannot invoke "com.example.model.PlayerData.getPublicID()" because "newPlayer" is null] with root cause
+java.lang.NullPointerException: Cannot invoke "com.example.model.PlayerData.getPublicID()" because "newPlayer" is null
+	at com.example.game.server.controller.MainController.createPlayer(MainController.java:123)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1071)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+23-10-2022 19:14:04.675 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:14:04.698 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 17284 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:14:04.699 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:14:07.597 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:14:07.597 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:14:07.597 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:14:07.597 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:14:07.760 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:14:07.760 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2999 ms
+23-10-2022 19:14:07.912 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:14:08.743 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:14:08.774 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64908 (http) with context path ''
+23-10-2022 19:14:08.774 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 4.87 seconds (JVM running for 6.608)
+23-10-2022 19:14:08.992 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:14:08.992 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:14:08.992 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 0 ms
+23-10-2022 19:14:50.688 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:14:50.725 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 9356 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:14:50.726 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:14:54.330 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:14:54.345 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:14:54.345 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:14:54.345 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:14:54.464 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:14:54.480 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 3714 ms
+23-10-2022 19:14:54.619 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:14:55.600 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:14:55.616 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64919 (http) with context path ''
+23-10-2022 19:14:55.616 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 5.492 seconds (JVM running for 7.622)
+23-10-2022 19:14:55.837 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:14:55.838 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:14:55.839 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 1 ms
+23-10-2022 19:16:22.340 [Test worker] WARN  o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer.logDuplicateJsonObjectsWarning - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/org.json/json/20220924/5aa95e7688f76c664af205c5937620f02688dfbc/json-20220924.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/seost/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+23-10-2022 19:16:22.379 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarting - Starting MainControllerTest using Java 17.0.4 on stews with PID 22220 (started by seost in C:\Users\seost\repositories\cs199-game\server\game-server)
+23-10-2022 19:16:22.380 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStartupProfileInfo - The following 1 profile is active: "dev"
+23-10-2022 19:16:25.079 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 0 (http)
+23-10-2022 19:16:25.089 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:16:25.090 [Test worker] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+23-10-2022 19:16:25.091 [Test worker] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/9.0.65]
+23-10-2022 19:16:25.227 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+23-10-2022 19:16:25.228 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 2810 ms
+23-10-2022 19:16:25.394 [Test worker] INFO  c.e.g.s.e.RestResponseEntityExceptionHandler.<clinit> - this.class/logger = class com.example.game.server.exceptions.RestResponseEntityExceptionHandler
+23-10-2022 19:16:26.235 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-auto-1"]
+23-10-2022 19:16:26.264 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 64933 (http) with context path ''
+23-10-2022 19:16:26.281 [Test worker] INFO  c.e.g.s.c.MainControllerTest.logStarted - Started MainControllerTest in 4.395 seconds (JVM running for 7.413)
+23-10-2022 19:16:26.603 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-10-2022 19:16:26.604 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+23-10-2022 19:16:26.606 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 2 ms
