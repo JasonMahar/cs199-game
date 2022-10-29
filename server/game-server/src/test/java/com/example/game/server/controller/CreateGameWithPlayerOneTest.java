@@ -15,13 +15,30 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.BDDMockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MainControllerTest {
+class CreateGamePlayerOneTest {
 
     @MockBean
     private GamesController gamesController;
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    // assert that PlayerOne has unique game ID.
+    // assert that PlayerOne can change game name
+    @Test
+    public void createPlayerTest() throws Exception {
+        TemplePlayerData playerData =  new TemplePlayerData(1, 1, "Stew");
+
+        // when
+        ResponseEntity<TemplePlayerData> response = restTemplate.postForEntity("/player?name=Stew", playerData,
+                TemplePlayerData.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+
+        assertThat(playerData.getName()).isEqualTo(response.getBody().getName());
+        assertThat(playerData.getPrivateID()).isEqualTo(response.getBody().getPrivateID());
+    }
 
 
     @Test
@@ -53,22 +70,6 @@ class MainControllerTest {
         assertThat(response.getBody().getAllPlayers().stream().toList().get(0))
                 .isEqualTo(expectedGameInstance.getAllPlayers().stream().toList().get(0));
     }
-
-    @Test
-    public void createPlayerTest() throws Exception {
-        TemplePlayerData playerData =  new TemplePlayerData(1, 1, "Stew");
-
-        // when
-        ResponseEntity<TemplePlayerData> response = restTemplate.postForEntity("/player?name=Stew", playerData,
-                TemplePlayerData.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
-
-        assertThat(playerData.getName()).isEqualTo(response.getBody().getName());
-        assertThat(playerData.getPrivateID()).isEqualTo(response.getBody().getPrivateID());
-    }
-
 
     @Test
     public void shouldNotJoinTest() throws Exception {
