@@ -4,29 +4,24 @@ import com.example.game.server.exceptions.*;
 import com.example.model.*;
 import com.example.util.*;
 import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-import static com.example.game.server.model.MapManager.setPlayersStartingLocations;
-
 
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class MainController {
-
     private static final Logger logger;
-
     private static GamesController gamesController;
     private static PlayersController playersController;
 
 
     static {
-
+        
         logger = LoggerFactory.getLogger(MainController.class);
-        logger.trace("static initialization block: {}",
-                PrintUtils.green(String.format("class/logger = %s", MainController.class.toString())));
         gamesController = new GamesController();
         playersController = new PlayersController();
     }
@@ -45,18 +40,24 @@ public class MainController {
     @ResponseStatus(HttpStatus.CREATED)
     public GameInstance createGame(@RequestBody TemplePlayerData newPlayer
     ) throws Exception {
-        if (newPlayer == null || newPlayer.getName() == null) {
-            throw new InvalidPlayerFieldException("Cannot create game with null Player Data.");
-        } else {
+        GameInstance game;
+
+        try {
+            int id = GamesController.createGame();
+            game = gamesController.getGame(id);
+
+            game.setGameName(newPlayer.getGameName() == null ?
+                    "TempleGame-" + id :
+                    newPlayer.getGameName());
+
+            PlayerData player = PlayersController.getPlayer(newPlayer.getPublicID());
+            game.setGameOwner(player);
+
+            game.addPlayer(player);
+            
+        } catch (PlayerNotFoundException e) {
+            throw new PlayerNotFoundException("Player name is null {}", e);
         }
-
-
-        GameInstance game = gamesController.getAllGames() == null || gamesController.getAllGames().size() == 0 ?
-                gamesController.getGame(GamesController.createGame()) :
-                gamesController.getAllGames().stream().toList().get(0);
-
-        game.addPlayer(newPlayer);
-        PlayersController.addPlayer(newPlayer);
         return game;
     }
 
@@ -68,36 +69,34 @@ public class MainController {
      * if successful return the current GameInstance
      */
     @PostMapping("/game/{gameID}")
+    @ResponseStatus(HttpStatus.OK)
     public GameInstance joinGame(
             @PathVariable Integer gameID,
             @RequestBody TemplePlayerData newPlayer) throws Exception {
 
+        if (gameID == 0) {
+            throw new GameNotFoundException("Game ID is 0.");
+        }
+
         if (newPlayer == null || newPlayer.getPublicID() == 0) {
-            throw new InvalidPlayerFieldException("Cannot Join Game with null Player Data.");
-        } else {
-            playersController = new PlayersController();
+            throw new PlayerNotFoundException("New Player Public ID is 0.");
         }
 
-        if (gameID == null) {
-            throw new InvalidGameIdException("Game Instance Not Found");
-        } else {
-            gamesController = new GamesController();
-            GameInstance game = gamesController.getGame(gameID);
+        int newPlayerId = newPlayer.getPublicID();
+
+        GameInstance game;
+        try {
+            game = gamesController.getGame(gameID);
+            TemplePlayerData player = (TemplePlayerData) PlayersController.getPlayer(newPlayerId);
+            player.setState(PlayerData.State.IN_LOBBY);
+
+
+            PrintUtils.red("adding player to game: " + game.addPlayer(player));
+
+        } catch (GameNotFoundException e) {
+            throw new GameNotFoundException("Game ID Not Found" + gameID);
         }
-
-
-        newPlayer.setState(PlayerData.State.IN_LOBBY);
-        PlayersController.addPlayer(newPlayer);
-        GameInstance game = gamesController.getGame(gameID);
-
-        if (game == null) {
-            throw new InvalidGameIdException("Game ID Not Found" + gameID);
-        }
-
-        if (!game.addPlayer(newPlayer)) {
-
-            throw new InvalidPlayerFieldException("Cant add player to game" + gameID);
-        }
+        
         return game;
     }
 
@@ -110,21 +109,18 @@ public class MainController {
      * 		PublicID set for opponents to refer to the player
      */
     @PostMapping("/player")
+    @ResponseStatus(HttpStatus.OK)
     public PlayerData createPlayer(
-            @RequestParam(value = "name", defaultValue = "") String name) throws InvalidPlayerFieldException {
+            @RequestParam(value = "name") String name) throws PlayerNotFoundException {
 
         if (name == null || name.isBlank()) {
-            throw new InvalidPlayerFieldException("Cannot create player with null Player Data.");
+            throw new PlayerNotFoundException("Cannot create player with null Player Data.");
         }
 
         Integer ID = PlayersController.createPlayer();
-        PrintUtils.cyan("iD: " + ID);
         PlayerData newPlayer = PlayersController.getPlayer(ID);
         newPlayer.setPublicID(ID);
         newPlayer.setName(name);
-
-        PrintUtils.cyan("newPlayer: " + newPlayer.getPublicID() + " state:" + newPlayer.getState());
-        PrintUtils.cyan("name: " + newPlayer.getName());
         return newPlayer;
     }
 
@@ -143,12 +139,19 @@ public class MainController {
     @DeleteMapping("/game/{gameID}/{playerID}")
     public Collection<GameInstance> leaveGame(@PathVariable Integer gameID, @PathVariable Integer playerID) {
 
-        GameInstance game = gamesController.getGame(gameID);
-        boolean removed = game.removePlayer(playerID);
+        try {
+            GameInstance game = gamesController.getGame(gameID);
+            boolean removed = game.removePlayer(playerID);
 
-        if (game.isEmpty()) {
-            gamesController.removeGame(gameID);
+            if (!game.removePlayer(playerID)) {
+                throw new Exception("Could not remove player with player id: " + playerID);
+            }
+            if (game.isEmpty()) {
+                gamesController.removeGame(gameID);
+            }
 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return gamesController.getAllGames();
@@ -159,51 +162,14 @@ public class MainController {
     //                          PUT Mapping
     //===================================================================================================
 
-/*
-	// if no gameID is supplied then return all games
-	@GetMapping("/game")
-
-		public Collection<GameInstance> game(@RequestParam(value = "id", defaultValue = "0") String id) {
-			System.out.println("ServerApplication.game() called with id: " + id);
-
-		Integer gameID = 0;
-		try {
-			gameID = Integer.valueOf(id);
-		}
-        catch (NumberFormatException ex){
-            ex.printStackTrace();
-        }
-
-		// TODO: probably should not allow clients to see list of games
-		//		but it's handy for testing purposes.
-		if( gameID == null || gameID == 0 ) {
-			// TODO:
-			// 	should normally return an error code for invalid param or data not found
-
-
-			return gamesController.getAllGames();
-		}
-
-//
-//GameInstance ps =  gamesController.getGame(gameID);
-//System.out.println("ServerApplication.game() returning GameInstance: " + ps);
-//return ps;
-
-		Collection<GameInstance> c = new ArrayList<GameInstance>();
-		GameInstance g = gamesController.getGame(gameID);
-		c.add(g);
-		return c;
-	}
-*/
-
-    // owner of the room clicks Start Game button or Game Ends, etc
+    //      owner of the room clicks Start Game button or Game Ends, etc
     // 		(for this first iteration, everyone in the lobby has Start Game privileges,
     //		since we're skipping the CreateGame step and there's only one GameID to JoinGame)
     //
     @PutMapping("/game/{id}")
     public GameInstance updateGameState(@PathVariable Integer gameID, @RequestBody GameInstance.GameState state) throws Exception {
         if (gameID == null || gamesController.getGame(gameID) == null) {
-            throw new InvalidGameIdException("Game ID or Game Instance using ID is null");
+            throw new GameNotFoundException("Game ID or Game Instance using ID is null");
         }
 
         if (state == null) {
@@ -236,8 +202,6 @@ public class MainController {
                 // fall through to GameState.ENTERING_GAME
                 playersState = PlayerData.State.RUNNING;
 
-                // need to set all players spawn points
-                setPlayersStartingLocations(game.getPlayers().values());
             }
 
             case GAME_LOBBY -> {
@@ -262,97 +226,23 @@ public class MainController {
     }
 
 
-//    @PutMapping("/game/{id}")
-//    public GameInstance updateGameState(@PathVariable Integer gameID) {
-////		public GameInstance updateGameState(@PathVariable String ID) {
-////		public GameInstance updateGameState(@PathVariable String ID, @RequestParam(value = "state", defaultValue = "IN_GAME") String state) {
-//        logger.info("ServerApplication.updateGameState() called with gameID: {}",PrintUtils.green(gameID));
-//
-//        // HACK: for some reason passing in state is messing up the ID, so hardcoding the state
-//
-//        GameInstance.GameState gameState = GameInstance.GameState.ENTERING_GAME;
-//        logger.info("gameState: {}", PrintUtils.green(gameState));
-//
-//
-//        GameInstance game = gamesController.getGame(gameID);
-//        game.setGameState(gameState);
-//
-//
-//        // different game states will change Player's state as appropriate
-//        PlayerData.State playersState = null;
-//
-//
-//        switch (gameState) {
-//
-//            case GAME_STARTING -> {
-//            }
-//
-//            //NOTE:  for this first iteration, we're skipping the starting countdown
-//            //		and loading phase and going directly to IN_GAME
-//            case ENTERING_GAME -> {
-//                game.setGameState(GameInstance.GameState.IN_GAME);
-//            }
-//
-//            case IN_GAME -> {
-//                // fall through to GameState.ENTERING_GAME
-//                playersState = PlayerData.State.RUNNING;
-//
-//                // need to set all players spawn points
-//                MapManager.setPlayersStartingLocations(game.getAllPlayers());
-//            }
-//
-//            case GAME_LOBBY -> {
-//                playersState = PlayerData.State.IN_LOBBY;
-//            }
-//
-//            case CLOSING -> {
-//                playersState = PlayerData.State.MAIN_MENU;
-//                gamesController.removeGame(gameID);
-//            }
-//
-//            default -> {
-//                System.out.println("\tERROR: Unknown state: " + gameState + ". returning null");
-//            }
-//
-//        }
-//
-//
-//        if (playersState != null) {
-//
-//            for (PlayerData player : game.getAllPlayers()) {
-//                player.setState(playersState);
-//            }
-//        }
-//
-//        return game;
-//    }
-
-
-    @PutMapping("/startgame/")
+    @PutMapping("/startgame")
     public GameInstance startGame() {
 
-        GameInstance.GameState gameState = GameInstance.GameState.ENTERING_GAME;
-
-        Integer gameID = GameDesignVars.GAME_LOBBY_ID;
+        Integer gameID = gamesController.getAllGames().stream().toList().get(0).getID();
 
         GameInstance game = gamesController.getGame(gameID);
-        game.setGameState(gameState);
 
+        game.setGameState(GameInstance.GameState.ENTERING_GAME);
 
-        PlayerData.State playersState = PlayerData.State.RUNNING;
-
-        // need to set all players spawn points
-        setPlayersStartingLocations(game.getPlayers().values());
-
-        if (playersState != null) {
-
+        // temporary state set to running just to make sure state is changing to expected value
             for (PlayerData player : game.getPlayers().values()) {
-                player.setState(playersState);
+                player.setState(PlayerData.State.RUNNING);
             }
-        }
-
+        
         return game;
     }
+
 
     /* updatePlayer
      *
@@ -361,21 +251,33 @@ public class MainController {
      * if successful return GameInstance - i.e. latest updated data
      */
     @PutMapping("/player/{gameID}")
-    public GameInstance updatePlayer(@PathVariable Integer gameID, @RequestBody TemplePlayerData player) throws Exception {
-        if (gameID == null || gamesController.getGame(gameID) == null) {
-            throw new InvalidGameIdException("Game ID is null or Game ID is invalid");
-        }
-        if (player == null || PlayersController.getPlayer(player.getPublicID()) == null) {
-            throw new InvalidPlayerFieldException("Player ID is null or Player ID in invalid");
-        }
-        GameInstance game = gamesController.getGame(gameID);
-        game.updatePlayer(player);
+    public GameInstance updatePlayer(@PathVariable Integer gameID, @RequestBody TemplePlayerData playerUpdates) throws Exception {
 
-        PlayersController.updatePlayer(player);
-
-        if (game.isEmpty()) {
-            gamesController.removeGame(gameID);
+        if (gameID == null) {
+            throw new GameNotFoundException("Game ID is null");
         }
+
+        if (playerUpdates == null || playerUpdates.getPublicID() == 0) {
+            throw new PlayerNotFoundException("Player ID is null or Player ID in invalid");
+        }
+        GameInstance game;
+
+        try {
+            game = gamesController.getGame(gameID);
+
+            PlayerData playerData = PlayersController.getPlayer(playerUpdates.getPublicID());
+
+            playerData.setName(playerUpdates.getName());
+
+            PlayersController.updatePlayer(playerData);
+
+            if (game.isEmpty()) {
+                gamesController.removeGame(gameID);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
 
         return game;
     }
@@ -393,7 +295,7 @@ public class MainController {
 
         Collection<GameInstance> allGames = gamesController.getAllGames();
         if(allGames == null || allGames.size() == 0) {
-            throw new InvalidGameIdException("No Game Instances Found");
+            throw new GameNotFoundException("No Game Instances Found");
         }
 
         return gamesController.getAllGames();
@@ -407,13 +309,15 @@ public class MainController {
         }
 
         if(id == null || id.isBlank()) {
-            throw new InvalidGameIdException("Game ID not found: id = " + id);
+            throw new GameNotFoundException("Game ID not found: id = " + id);
         }
 
         int gameID = Integer.parseInt(id);
 
-        GameInstance gameInstance = gamesController.getGame(gameID);
-        return gameInstance;
+        if (gameID == 0) {
+            throw new GameNotFoundException("Bad game id = " + gameID);
+        }
+        return gamesController.getGame(gameID);
     }
 
 
@@ -433,22 +337,17 @@ public class MainController {
      * gets player identified by id passed in
      */
     @GetMapping("/player/{id}")
-    public Collection<PlayerData> getPlayer(@RequestParam(value = "id", defaultValue = "0") String id) throws InvalidPlayerFieldException {
+    public PlayerData getPlayer(@RequestParam(value = "id", defaultValue = "0") String id) throws PlayerNotFoundException {
 
         if (id == null || id.isBlank() || id.hashCode() < 1) {
-            throw new InvalidPlayerFieldException("bad playerID = " + id);
+            throw new PlayerNotFoundException("bad playerID = " + id);
         }
-
         int playerID = Integer.parseInt(id);
 
         if (playerID == 0) {
-            throw new InvalidPlayerFieldException("bad playerID = " + id);
+            throw new PlayerNotFoundException("bad playerID = " + id);
         }
-
-        Collection<PlayerData> playerList = new ArrayList<PlayerData>();
-        PlayerData player = PlayersController.getPlayer(playerID);
-        playerList.add(player);
-        return playerList;
+        return PlayersController.getPlayer(playerID);
     }
 
 }

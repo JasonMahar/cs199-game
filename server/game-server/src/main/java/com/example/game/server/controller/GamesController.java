@@ -13,6 +13,7 @@ public class GamesController {
 
     private static final Logger logger;
 
+    protected static GameInstance GAME_INSTANCE;
     private static HashMap<Integer, GameInstance> games;
 
     static {
@@ -34,6 +35,7 @@ public class GamesController {
 
         // NOTE: there is only 1 game for this first iteration so could
         //		potentially re-use key/ID == GameDesignVars.GAME_LOBBY_ID
+
         GameInstance game = new GameInstance(GameInstance.GameState.GAME_LOBBY, key , null);
         games.put(key, game);
         return key;

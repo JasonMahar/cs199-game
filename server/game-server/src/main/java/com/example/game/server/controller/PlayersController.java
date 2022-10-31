@@ -26,7 +26,6 @@ public class PlayersController {
         player.setPublicID(publicKey);
         int privateKey = createNewKey();
         player.setPrivateID(privateKey);
-
 		players.put(publicKey, player);
         return publicKey;
     }
@@ -67,10 +66,11 @@ public class PlayersController {
     }
 
     public static boolean updatePlayer(PlayerData player) {
+        if (player == null) {
+            return false;
+        }
 
-        if( player == null )	return false;
-
-        return players.put(player.getPublicID(), player) != null;
+        return players.replace(player.getPublicID(), player) != null;
     }
 
     public static boolean removePlayer(Integer playerPublicID ) {

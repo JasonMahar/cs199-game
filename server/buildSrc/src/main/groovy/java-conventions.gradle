@@ -6,6 +6,14 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    logbackVersion = '1.2.11'
+    elasticSearchVersion  = "8.4.3"
+}
+
+task wrapper(type: Wrapper){
+    gradleVersion = '7.5.1'
+}
 
 // Enable deprecation messages when compiling Java code
 tasks.withType(JavaCompile).configureEach {

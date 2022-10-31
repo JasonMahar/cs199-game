@@ -294,24 +294,17 @@ public class GameSession implements GameSessionInterface {
     }
 
     private static TemplePlayerData createTemplePlayerDataFromJSON(HashMap<String, Object> map) {
-        float x = ((BigDecimal)map.get("x")).floatValue();
-        float y = ((BigDecimal)map.get("y")).floatValue();
-        float speed = ((BigDecimal)map.get("speed")).floatValue();
-        return new TemplePlayerData((Integer)map.get("publicID"), (String)map.get("name"), PlayerData.State.valueOf(map.get("state").toString()), x, y,
-                PlayerData.Facing.valueOf(map.get("facing").toString()), speed);
+        return new TemplePlayerData((Integer)map.get("publicID"),
+                (String)map.get("name"),
+                PlayerData.State.valueOf(map.get("state").toString()));
     }
 
     private static TemplePlayerData createTemplePlayerDataFromJSON(JSONObject json) throws JSONException {
-        return new TemplePlayerData(json.getInt("publicID"), json.getString("name"),
-                PlayerData.State.valueOf(json.getString("state")), json.getFloat("x"), json.getFloat("y"),
-                PlayerData.Facing.valueOf(json.getString("facing")), json.getFloat("speed"));
+        return new TemplePlayerData(json.getInt("publicID"),
+                json.getString("name"),
+                PlayerData.State.valueOf(json.getString("state")));
     }
 
-    private static Projectile createCS195ProjectileFromJSON(JSONObject json) throws JSONException {
-        Projectile projectile = new TempleProjectile(json.getInt("ID"),
-                json.getFloat("xPosition"), json.getFloat("yPosition"), (PlayerData.Facing)json.get("facing"), json.getFloat("speed"));
-        return projectile;
-    }
 
     private static String readAll(InputStream is) throws IOException {
         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));

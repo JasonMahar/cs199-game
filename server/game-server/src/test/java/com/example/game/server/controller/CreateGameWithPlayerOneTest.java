@@ -27,7 +27,8 @@ class CreateGamePlayerOneTest {
     // assert that PlayerOne can change game name
     @Test
     public void createPlayerTest() throws Exception {
-        TemplePlayerData playerData =  new TemplePlayerData(1, 1, "Stew");
+        // /player/name
+        TemplePlayerData playerData =  new TemplePlayerData(1, "Stew");
 
         // when
         ResponseEntity<TemplePlayerData> response = restTemplate.postForEntity("/player?name=Stew", playerData,
@@ -43,7 +44,7 @@ class CreateGamePlayerOneTest {
 
     @Test
     public void createGameTest() throws Exception {
-        TemplePlayerData playerData =  new TemplePlayerData(1, 1, "Stew");
+        TemplePlayerData playerData =  new TemplePlayerData(1, "Stew");
 
         ResponseEntity<GameInstance> response = restTemplate.postForEntity("/game/", playerData,
                 GameInstance.class);
@@ -52,7 +53,7 @@ class CreateGamePlayerOneTest {
         GameInstance expectedGameInstance = new GameInstance(
                 GameInstance.GameState.GAME_LOBBY,
                 1,
-                Map.of(1, new TemplePlayerData(1, 1, "Stew")
+                Map.of(1, new TemplePlayerData(1, "Stew")
                 ));
 
 

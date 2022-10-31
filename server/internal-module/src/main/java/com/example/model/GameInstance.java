@@ -8,9 +8,12 @@ import java.util.stream.*;
 
 public class GameInstance {
     private static final Logger logger;
-
     private GameState gameState;
     private int ID;
+
+    private String gameName; // create game will provide an option to set a custom name
+
+    private PlayerData gameOwner; // owner of game, so there cannot be a game without an owner
     private Map<Integer, PlayerData> players;
 
     static {
@@ -52,6 +55,7 @@ public class GameInstance {
         if(!players.containsKey(player.getPublicID())){
             return false;
         }
+
         return this.players.replace(player.getPublicID(), player) != null;
     }
 
@@ -90,6 +94,26 @@ public class GameInstance {
     public boolean close() {
         this.setGameState(GameState.CLOSING);
         return true;
+    }
+
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public PlayerData gameOwner() {
+        return gameOwner;
+    }
+
+    public void setGameOwner(PlayerData gameOwner) {
+        if(gameOwner instanceof TemplePlayerData player) {
+            player.setIsGameOwner(true);
+            this.gameOwner = gameOwner;
+        }
     }
 
     public int getID() {
@@ -169,6 +193,10 @@ public class GameInstance {
         result = 31 * result + ID;
         result = 31 * result + (players != null ? players.hashCode() : 0);
         return result;
+    }
+
+    private void setCustomGameName(String gameName) {
+        this.gameName = gameName;
     }
 
     public static enum GameState {

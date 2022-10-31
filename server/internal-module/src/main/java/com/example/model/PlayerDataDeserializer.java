@@ -14,6 +14,6 @@ public class PlayerDataDeserializer extends JsonDeserializer<PlayerData> {
         PrintUtils.cyan("Deserializing: ");
         ObjectMapper mapper = (ObjectMapper) p.getCodec();
         ObjectNode root = mapper.readTree(p);
-        return mapper.readValue(root.toString(), TemplePlayerData.class);
+        return mapper.readValue(root.toString(), PlayerData.class);
     }
 }

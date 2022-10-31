@@ -5,53 +5,53 @@ package com.example.model;
 // (powered by FernFlower decompiler)
 //
 
+import com.example.util.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
+import com.fasterxml.jackson.databind.node.*;
 
-@JsonDeserialize(as = TemplePlayerData.class)
+import java.io.*;
+
+//@JsonDeserialize(using = TemplePlayerData.TemplePlayerDataDeserializer.class)
 public class TemplePlayerData implements PlayerData {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
     private int publicID;
     private int privateID;
-    private String name;
+    public String name;
     private PlayerData.State state;
-    protected float x;
-    protected float y;
-    private PlayerData.Facing facing;
-    private float speed;
-    private int livesRemaining;
 
-    public TemplePlayerData() {
+    public String gameName;
+    public boolean isGameOwner;
 
+    public TemplePlayerData() {}
+
+    public TemplePlayerData(String name) {
+        PrintUtils.green("construtor " + name);
+        this.name = name;
+        this.publicID = 1;
     }
 
-    public TemplePlayerData(int publicID, String name, PlayerData.State state, float x, float y, PlayerData.Facing facing, float speed) {
-        this(publicID, 1, name, state, x, y, facing, speed);
+    public TemplePlayerData(int gameId, String name) {
+        this(gameId, name, State.IN_LOBBY);
     }
 
-    public TemplePlayerData(int publicID, int privateID, String name, PlayerData.State state, float x, float y, PlayerData.Facing facing, float speed) {
+    public TemplePlayerData(int publicID, String name, PlayerData.State state) {
+        this(publicID,  name, state, 1);
+    }
+
+    public TemplePlayerData(int publicID, String name, PlayerData.State state, int privateID) {
+        PrintUtils.green("construtor");
         this.publicID = publicID;
         this.privateID = privateID;
         this.name = name;
         this.state = state;
-        this.x = x;
-        this.y = y;
-        this.facing = facing;
-        this.speed = speed;
-    }
-
-    public TemplePlayerData(String name) {
-        this(1,1, name);
-    }
-
-    public TemplePlayerData(int publicID, int privateID, String name) {
-        this(publicID, privateID, name, State.IN_LOBBY, 0, 0, Facing.DOWN, 3);
     }
 
     public int getPublicID() {
         return this.publicID;
     }
-
 
     public void setPublicID(int publicID) {
         this.publicID = publicID;
@@ -81,49 +81,31 @@ public class TemplePlayerData implements PlayerData {
         this.state = state;
     }
 
-    public float getX() {
-        return this.x;
+
+    public boolean getIsGameOwner() {
+        return isGameOwner;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public void setIsGameOwner(boolean gameOwner) {
+        isGameOwner = gameOwner;
     }
 
-    public float getY() {
-        return this.y;
+    public String getGameName() {
+        return gameName;
     }
 
-    public void setY(float y) {
-        this.y = y;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
-    public PlayerData.Facing getFacing() {
-        return this.facing;
+    public static class TemplePlayerDataDeserializer extends JsonDeserializer<TemplePlayerData> {
+
+        @Override
+        public TemplePlayerData deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+            PrintUtils.cyan("Deserializing: ");
+            ObjectMapper mapper = (ObjectMapper) p.getCodec();
+            ObjectNode root = mapper.readTree(p);
+            return mapper.readValue(root.toString(), TemplePlayerData.class);
+        }
     }
-
-    public void setFacing(PlayerData.Facing facing) {
-        this.facing = facing;
-    }
-
-    public float getSpeed() {
-        return this.speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public String toString() {
-        return "{" +
-                " publicID=" + this.publicID +
-                ", name=" + this.name +
-                ", state=" + this.state +
-                ", x=" + this.x +
-                ", y=" + this.y +
-                ", facing=" + this.facing +
-                ", speed=" + this.speed +
-                "}";
-    }
-
-
 }

@@ -24,11 +24,6 @@ public class ServerApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         SpringApplicationBuilder builder = application.sources(ServerApplication.class);
 
-        PrintUtils.green(String.format(
-                        "ServerApplication.configure: SpringApplicationBuilder application.application() = %s",
-                        application.application()
-                )
-        );
         return builder;
     }
 

@@ -17,15 +17,15 @@ ext {
 
 dependencies {
 
-    implementation 'org.slf4j:jul-to-slf4j:2.0.3'
+    api 'org.slf4j:jul-to-slf4j:2.0.3'
 
-    implementation "ch.qos.logback:logback-core:${logbackVersion}",
+    api "ch.qos.logback:logback-core:${logbackVersion}",
             "ch.qos.logback:logback-classic:${logbackVersion}"
 
-    implementation 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
-    implementation 'jakarta.json:jakarta.json-api:2.1.1'
+    api 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
+    api 'jakarta.json:jakarta.json-api:2.1.1'
 
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0-rc2'
-    implementation 'org.json:json:20220924'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0-rc2'
+    api 'org.json:json:20220924'
 
 }
