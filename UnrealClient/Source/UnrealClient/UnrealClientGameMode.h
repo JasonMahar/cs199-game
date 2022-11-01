@@ -4,15 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Http.h"
 #include "UnrealClientGameMode.generated.h"
 
-UCLASS(minimalapi)
+
+UCLASS(minimalapi, Blueprintable)
 class AUnrealClientGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
 	AUnrealClientGameMode();
+	virtual void StartPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+	void SomePrintFunction();
+
+private:
+	void OnResponseReceived(FHttpRequestPtr request, FHttpResponsePtr response, bool bConnectedSuccessfully);
+
 };
 
 
