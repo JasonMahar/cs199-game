@@ -1,4 +1,4 @@
 rootProject.name = 'server'
 include 'internal-module'
-include 'game-server'
+include 'rest'
 
