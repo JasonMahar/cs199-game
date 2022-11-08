@@ -27,7 +27,7 @@ private:
 
 public:
 	TemplePlayerData();
-	TemplePlayerData(const string &name, int publicId);
+	TemplePlayerData(string name, int publicId);
 
 	TemplePlayerData(string name, int publicId, bool isGameOwner);
 
