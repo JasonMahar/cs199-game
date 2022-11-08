@@ -2,7 +2,7 @@
 
 #include <string>
 
-using std;
+using namespace std;
 
 class GameDesignVars final
 {
@@ -27,17 +27,18 @@ public:
 	static const int MAX_PLAYERS_PER_GAME = 4;
 
 	static const int BAD_GAME_ID = 0;
-	static const string DEFAULT_GAME_NAME = L"Default Game Name";
+	static const string DEFAULT_GAME_NAME = "Default Game Name";
 
 
 
 	// Player constants:
 	static const int DEFAULT_PLAYER_ID = 0;
-	static const string DEFAULT_PLAYER_NAME = L"Default Player Name";
+	static const string DEFAULT_PLAYER_NAME = "Default Player Name";
 
 	public static final int 	STARTING_LIVES = 3;
 	public static final int 	MAX_LIVES = 3;
 	public static final float 	MAX_PLAYER_SPEED = 2.0f;		// in virtual meters/second
+	public static final float 	MAX_HEALTH = 1000.0f;		// 
 
 
 
