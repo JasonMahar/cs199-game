@@ -10,16 +10,17 @@ class TemplePlayerData :  public PlayerData
 {
 
 protected:
-	int publicID = 0;
+	int publicID = GameDesignVars::DEFAULT_PLAYER_ID;
 
 private:
 	UUID privateID;
 
 protected:
-	string name;
-	PlayerData::State state = static_cast<PlayerData::State>(0);
+	string name = GameDesignVars::DEFAULT_PLAYER_NAME;
 
-	string gameName;
+	PlayerData::State state = PlayerData::State::PLAYER_CREATED;
+
+	string gameName = GameDesignVars::DEFAULT_GAME_NAME;
 
 private:
 	bool ownsGame = false;
@@ -28,7 +29,7 @@ public:
 	TemplePlayerData();
 	TemplePlayerData(const string &name, int publicId);
 
-	TemplePlayerData(const string &name, int publicId, bool isGameOwner);
+	TemplePlayerData(string name, int publicId, bool isGameOwner);
 
 
 	bool isGameOwner();
@@ -41,10 +42,10 @@ public:
 	void setPrivateID(UUID privateID) override;
 
 	string getName() override;
-	void setName(const string &name) override;
+	void setName(string name) override;
 
 	string getGameName();
-	void setGameName(const string &gameName);
+	void setGameName(string gameName);
 
 	PlayerData::State getState();
 	void setState(PlayerData::State state);

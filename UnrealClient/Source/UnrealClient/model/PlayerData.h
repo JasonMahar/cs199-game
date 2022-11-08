@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
-
+#include "GameDesignVars.h"
 
 using namespace std;
 

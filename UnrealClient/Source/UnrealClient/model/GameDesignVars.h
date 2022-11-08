@@ -20,14 +20,11 @@ public:
 
 
 	// Game Instance constants:
-	
-	// STUB:
-	static const bool ONLY_ONE_GAME = false;
-
-	static const int MAX_PLAYERS_PER_GAME = 4;
 
 	static const int BAD_GAME_ID = 0;
 	static const string DEFAULT_GAME_NAME = "Default Game Name";
+
+	static const int MAX_PLAYERS_PER_GAME = 4;
 
 
 
@@ -35,12 +32,13 @@ public:
 	static const int DEFAULT_PLAYER_ID = 0;
 	static const string DEFAULT_PLAYER_NAME = "Default Player Name";
 
+
+
+	// Player Character constants:
 	public static final int 	STARTING_LIVES = 3;
 	public static final int 	MAX_LIVES = 3;
 	public static final float 	MAX_PLAYER_SPEED = 2.0f;		// in virtual meters/second
 	public static final float 	MAX_HEALTH = 1000.0f;		// 
-
-
 
 
 

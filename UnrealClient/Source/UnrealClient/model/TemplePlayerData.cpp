@@ -6,11 +6,12 @@ TemplePlayerData::TemplePlayerData()
 {
 }
 
-TemplePlayerData::TemplePlayerData(const string &name, int publicId) : TemplePlayerData(name, publicId, false)
+TemplePlayerData::TemplePlayerData(string name, int publicId) 
+		: TemplePlayerData(name, publicId, false)
 {
 }
 
-TemplePlayerData::TemplePlayerData(const string &name, int publicId, bool isGameOwner)
+TemplePlayerData::TemplePlayerData(string name, int publicId, bool isGameOwner)
 {
 	this->name = name;
 	this->publicID = publicId;
@@ -53,7 +54,7 @@ string TemplePlayerData::getName()
 	return this->name;
 }
 
-void TemplePlayerData::setName(const string &name)
+void TemplePlayerData::setName(string name)
 {
 	this->name = name;
 }
@@ -63,7 +64,7 @@ string TemplePlayerData::getGameName()
 	return this->gameName;
 }
 
-void TemplePlayerData::setGameName(const string &gameName)
+void TemplePlayerData::setGameName(string gameName)
 {
 	this->gameName = gameName;
 }

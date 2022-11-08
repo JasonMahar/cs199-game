@@ -6,85 +6,80 @@
 #include <vector>
 #include <stdexcept>
 
+#include "GameDesignVars.h"
+
+
 using namespace std;
 
 class GameInstance 
 {
 
 private:
-	int gameID = 0;
+	int gameID = GameDesignVars::BAD_GAME_ID;
 
-	GameState gameState = static_cast<GameState>(0);
+	GameState gameState = GameState::GAME_LOBBY;
+
 public:
-	string gameName;
+	string gameName = GameDesignVars::DEFAULT_GAME_NAME;
+
 private:
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @JsonIgnore private PlayerData gameOwner;
-	PlayerData gameOwner;
+	PlayerData gameOwner = NULL;
 
 	unordered_map<int, PlayerData> players;
 
 public:
 	GameInstance();
 
-	GameInstance(GameState gameState, int &ID, unordered_map<int, PlayerData> &players);
+	GameInstance(GameState gameState, int ID, 
+			unordered_map<int, PlayerData> &players);
+	GameInstance(GameState gameState, int ID, 
+			unordered_map<int, PlayerData> &players, PlayerData gameOwner);
 
-	GameInstance(GameState gameState, int &ID, unordered_map<int, PlayerData> &players, PlayerData gameOwner);
+	string getGameName();
+	GameInstance setGameName(const string gameName);
+	
 
-	virtual string getGameName();
-
-	virtual GameInstance setGameName(const string &gameName);
-
-	virtual PlayerData getGameOwner();
+	// NOTE: this should proably be just the playerID
+	PlayerData getGameOwner();
 
 private:
+	// NOTE: this should proably be just the playerID
 	void setGameOwner(PlayerData gameOwner);
 
 public:
-	virtual bool addPlayer(PlayerData player);
+	bool addPlayer(PlayerData player);
+	bool updatePlayer(PlayerData player);
+	bool removePlayer(int playerPublicID);
 
-	virtual bool updatePlayer(PlayerData player);
-
-	virtual bool removePlayer(int playerPublicID);
-
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @JsonIgnore public boolean isEmpty()
-	virtual bool isEmpty();
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
+	bool isEmpty();
 //ORIGINAL LINE: @JsonIgnore public boolean isFull()
-	virtual bool isFull();
+	bool isFull();
 
-	virtual bool join();
+	bool join();
+	bool start();
+	bool enter();
+	bool run();
+	bool close();
 
-	virtual bool start();
+	int getGameID();
+	void setGameID(int iD);
 
-	virtual bool enter();
+	GameState getGameState();
+	void setGameState(GameState newState);
 
-	virtual bool run();
+	PlayerData getPlayer(int playerID);
+	unordered_map<int, PlayerData> getPlayers();
 
-	virtual bool close();
+	string toString();
 
+	bool equals(any o);
 
-	virtual int getGameID();
-
-	virtual void setGameID(int iD);
-
-	virtual GameState getGameState();
-
-	virtual void setGameState(GameState newState);
-
-	virtual PlayerData getPlayer(int playerID);
-
-	virtual unordered_map<int, PlayerData> getPlayers();
-
-	virtual string toString();
-
-	virtual bool equals(any o);
-
-	virtual int hashCode();
+	int hashCode();
 
 private:
-	void setCustomGameName(const string &gameName);
+	void setCustomGameName(const string gameName);
 
 public:
 	enum class GameState
@@ -96,11 +91,6 @@ public:
 		CLOSING,
 
 		UNKNOWN
-
-//JAVA TO C++ CONVERTER TODO TASK: Enum methods are not converted by Java to C++ Converter:
-//			private GameState()
-//		{
-//		}
 	};
 
 	class GameStateHelper
@@ -110,12 +100,12 @@ public:
 		{
 			return
 			{
-				{GameState::GAME_LOBBY, L"GAME_LOBBY"},
-				{GameState::GAME_STARTING, L"GAME_STARTING"},
-				{GameState::ENTERING_GAME, L"ENTERING_GAME"},
-				{GameState::IN_GAME, L"IN_GAME"},
-				{GameState::CLOSING, L"CLOSING"},
-				{GameState::UNKNOWN, L"UNKNOWN"}
+				{GameState::GAME_LOBBY, "GAME_LOBBY"},
+				{GameState::GAME_STARTING, "GAME_STARTING"},
+				{GameState::ENTERING_GAME, "ENTERING_GAME"},
+				{GameState::IN_GAME, "IN_GAME"},
+				{GameState::CLOSING, "CLOSING"},
+				{GameState::UNKNOWN, "UNKNOWN"}
 			};
 		}
 

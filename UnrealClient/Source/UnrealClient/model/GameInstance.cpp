@@ -1,246 +1,251 @@
-//====================================================================================================
-//The Free Edition of Java to C++ Converter limits conversion output to 100 lines per file.
-
-//To purchase the Premium Edition, visit our website:
-//https://www.tangiblesoftwaresolutions.com/order/order-java-to-cplus.html
-//====================================================================================================
 
 #include "GameInstance.h"
-#include "TemplePlayerData.h"
+#include "PlayerData.h"
 
-namespace com::example::model
+using namespace std;
+
+
+GameInstance::GameInstance()
 {
-	using namespace com::fasterxml::jackson::annotation;
+}
 
-	GameInstance::GameInstance()
+GameInstance::GameInstance(GameState gameState, int ID, 
+			unordered_map<int, PlayerData> &players)
+{
+	this->gameState = gameState;
+	this->gameID = ID.value();
+
+	// create new players map or set players map
+	// 
+	//if (players.empty())
+	if (players == null)
 	{
+		throw new Exception("players map cannot be null");
+		//this->players = unordered_map<int, PlayerData>();
+	}
+	else
+	{
+		this->players = players;
+		this->gameOwner = (vector<>(players.values()))[0];
+	}
+}
+
+
+// NOTE: this version calls other constructor to set most attributes
+GameInstance::GameInstance(GameState gameState, int ID, 
+			unordered_map<int, PlayerData> &players, PlayerData gameOwner)
+					: GameInstance(gameState, ID, players)
+{
+
+	//if (gameOwner == nullptr)
+	if (gameOwner == NULL)
+	{
+		throw runtime_error("gameOwner passed in is NULL");
 	}
 
-	GameInstance::GameInstance(GameState gameState, int &ID, unordered_map<int, PlayerData> &players)
-	{
-		this->gameState = gameState;
-		this->gameID = ID.value();
+	// NOTE: this should proably be just the playerID
+	this->gameOwner = gameOwner;
 
-		if (players.empty())
-		{
-			this->players = unordered_map<int, PlayerData>();
-		}
-		else
-		{
-			this->players = players;
-			this->gameOwner = (vector<>(players.values()))[0];
-		}
+	// NOTE: commenting out. don't think we want to pass gameName this way
+	/*
+	// set game name
+	 if ((static_pointer_cast<TemplePlayerData>(gameOwner))->gameName != "")
+	{
+		this->gameName = (gameOwner)->gameName;
+	}
+	else
+	{
+		this->gameName = "TempleRun-" + ID.value();
+	}*/
+
+
+}
+
+string GameInstance::getGameName()
+{
+	return gameName;
+}
+
+GameInstance GameInstance::setGameName(const string gameName)
+{
+	this->gameName = gameName;
+	return shared_from_this();
+}
+
+PlayerData GameInstance::getGameOwner()
+{
+	return gameOwner;
+}
+
+void GameInstance::setGameOwner(PlayerData gameOwner)
+{
+	this->gameOwner = gameOwner;
+}
+
+bool GameInstance::addPlayer(PlayerData player)
+{
+
+	//if (player == nullptr)
+	if (player == NULL)
+	{
+		throw runtime_error("Null Input Exception");
 	}
 
-	GameInstance::GameInstance(GameState gameState, int &ID, unordered_map<int, PlayerData> &players, PlayerData gameOwner)
+	return this->players.emplace(player->getPublicID(), player) == nullptr;
+}
+
+bool GameInstance::updatePlayer(PlayerData player)
+{
+	if (player == nullptr)
 	{
-		this->gameState = gameState;
-		this->gameID = ID.value();
-
-		if (gameOwner == nullptr)
-		{
-			throw runtime_error("players map cannot be null");
-		}
-		// concrete class in GameInstance?
-		this->gameOwner = static_pointer_cast<TemplePlayerData>(gameOwner);
-
-		// set game name
-		if ((static_pointer_cast<TemplePlayerData>(gameOwner))->gameName != L"")
-		{
-			this->gameName = (static_pointer_cast<TemplePlayerData>(gameOwner))->gameName;
-		}
-		else
-		{
-			this->gameName = L"TempleRun-" + ID.value();
-		}
-
-		// create new players map or set players map
-		if (players.empty())
-		{
-			this->players = unordered_map<int, PlayerData>();
-		}
-		else
-		{
-			this->players = players;
-		}
-		this->players.emplace(gameOwner->getPublicID(), gameOwner);
-
+		throw runtime_error("Null Input Exception");
 	}
-
-	string GameInstance::getGameName()
+	if (players.find(player->getPublicID()) == players.end())
 	{
-		return gameName;
-	}
-
-	GameInstance GameInstance::setGameName(const string &gameName)
-	{
-		this->gameName = gameName;
-		return shared_from_this();
-	}
-
-	PlayerData GameInstance::getGameOwner()
-	{
-		return gameOwner;
-	}
-
-	void GameInstance::setGameOwner(PlayerData gameOwner)
-	{
-		this->gameOwner = gameOwner;
-	}
-
-	bool GameInstance::addPlayer(PlayerData player)
-	{
-		if (player == nullptr)
-		{
-			throw runtime_error("Null Input Exception");
-		}
-		if (dynamic_pointer_cast<TemplePlayerData>(player) != nullptr)
-		{
-			TemplePlayerData other = static_pointer_cast<TemplePlayerData>(player);
-
-			if (players.empty())
-			{
-				setGameOwner(player);
-			}
-			if (players.find(other->getPublicID()) != players.end())
-			{
-				return false;
-			}
-
-			return this->players.emplace(other->getPublicID(), other) == nullptr;
-		}
 		return false;
 	}
 
-	bool GameInstance::updatePlayer(PlayerData player)
-	{
-		if (player == nullptr)
-		{
-			throw runtime_error("Null Input Exception");
-		}
-		if (players.find(player->getPublicID()) == players.end())
-		{
-			return false;
-		}
+	return this->players.replace(player->getPublicID(), player) != nullptr;
+}
 
-		return this->players.replace(player->getPublicID(), player) != nullptr;
+bool GameInstance::removePlayer(int playerPublicID)
+{
+	if (this->players.find(playerPublicID) == this->players.end())
+	{
+		return false;
 	}
 
-	bool GameInstance::removePlayer(int playerPublicID)
-	{
-		if (this->players.find(playerPublicID) == this->players.end())
-		{
-			return false;
-		}
-		else
-		{
-			return this->players.erase(playerPublicID) != nullptr;
-		}
-	}
+	return this->players.erase(playerPublicID) != nullptr;
+}
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
+
 //ORIGINAL LINE: @JsonIgnore public boolean isEmpty()
-	bool GameInstance::isEmpty()
-	{
-		return this->players.empty();
-	}
+bool GameInstance::isEmpty()
+{
+	return this->players.empty();
+}
 
-//JAVA TO C++ CONVERTER TODO TASK: Most Java annotations will not have direct C++ equivalents:
 //ORIGINAL LINE: @JsonIgnore public boolean isFull()
-	bool GameInstance::isFull()
-	{
-		return this->players.size() >= 4;
-	}
+bool GameInstance::isFull()
+{
+	return this->players.size() >= GameDesignVars::MAX_PLAYERS_PER_GAME;
+}
 
-	bool GameInstance::join()
+bool GameInstance::join()
+{
+	this->setGameState(GameState::GAME_LOBBY);
+	return true;
+}
+
+bool GameInstance::start()
+{
+	this->setGameState(GameState::GAME_STARTING);
+	return true;
+}
+
+bool GameInstance::enter()
+{
+	this->setGameState(GameState::ENTERING_GAME);
+	return true;
+}
+
+bool GameInstance::run()
+{
+	this->setGameState(GameState::IN_GAME);
+	return true;
+}
+
+bool GameInstance::close()
+{
+	this->setGameState(GameState::CLOSING);
+	return true;
+}
+
+int GameInstance::getGameID()
+{
+	return this->gameID;
+}
+
+void GameInstance::setGameID(int iD)
+{
+	this->gameID = iD;
+}
+
+GameInstance::GameState GameInstance::getGameState()
+{
+	return this->gameState;
+}
+
+void GameInstance::setGameState(GameState newState)
+{
+	this->gameState = newState;
+}
+
+PlayerData GameInstance::getPlayer(int playerID)
+{
+	return this->players[playerID];
+}
+
+unordered_map<int, PlayerData> & GameInstance::getPlayers()
+{
+	return players;
+}
+
+string GameInstance::toString()
+{
+	return  "gameID=" + gameID + 
+			", gameName=" + gameName + 
+			", gameOwner=" + gameOwner->getName() + 
+			", gameState=" + gameState;
+
+	/*
+	return "\n{ "
+		+ "'_commnent' : 'GAME',"
+		+ "'ID' : " + gameID + ", "
+		+ "'gameState' : " + gameState + ", "
+		+ getAllPlayers()
+		+ " } ";
+	*/
+
+}
+
+bool GameInstance::equals(any o)
+{
+	if (this == o)
 	{
-		this->setGameState(GameState::GAME_LOBBY);
 		return true;
 	}
-
-	bool GameInstance::start()
+	if (!(o.type() == typeid(GameInstance)))
 	{
-		this->setGameState(GameState::GAME_STARTING);
-		return true;
+		return false;
 	}
 
-	bool GameInstance::enter()
+	GameInstance game = any_cast<GameInstance>(o);
+	if (gameID != game->gameID)
 	{
-		this->setGameState(GameState::ENTERING_GAME);
-		return true;
+		return false;
+	}
+	if (gameState != game->gameState)
+	{
+		return false;
 	}
 
-	bool GameInstance::run()
-	{
-		this->setGameState(GameState::IN_GAME);
-		return true;
-	}
+	return true;
+}
 
-	bool GameInstance::close()
-	{
-		this->setGameState(GameState::CLOSING);
-		return true;
-	}
 
-	int GameInstance::getGameID()
-	{
-		return this->gameID;
-	}
+public int GameInstance::hashCode() {
+	int result = gameState != null ? gameState.hashCode() : 0;
+	result = 31 * result + gameID;
+	result = 31 * result + (players != null ? players.hashCode() : 0);
+	return result;
+}
 
-	void GameInstance::setGameID(int iD)
-	{
-		this->gameID = iD;
-	}
 
-	GameInstance::GameState GameInstance::getGameState()
-	{
-		return this->gameState;
-	}
 
-	void GameInstance::setGameState(GameState newState)
-	{
-		this->gameState = newState;
-	}
+void GameInstance::setCustomGameName(const string gameName)
+{
+	this.gameName = gameName;
+}
 
-	PlayerData GameInstance::getPlayer(int playerID)
-	{
-		return static_pointer_cast<TemplePlayerData>(this->players[playerID]);
-	}
 
-	unordered_map<int, PlayerData> GameInstance::getPlayers()
-	{
-		return players;
-	}
-
-	string GameInstance::toString()
-	{
-		return L"gameID=" + to_wstring(gameID) + L", gameName=" + gameName + L", gameOwner=" + gameOwner->getName() + L", gameState=" + gameState;
-
-	}
-
-	bool GameInstance::equals(any o)
-	{
-		if (shared_from_this() == o)
-		{
-			return true;
-		}
-		if (!(o.type() == typeid(GameInstance)))
-		{
-			return false;
-		}
-		GameInstance game = any_cast<GameInstance>(o);
-		if (gameID != game->gameID)
-		{
-			return false;
-		}
-		if (gameState != game->gameState)
-		{
-			return false;
-		}
-
-//====================================================================================================
-//End of the allowed output for the Free Edition of Java to C++ Converter.
-
-//To purchase the Premium Edition, visit our website:
-//https://www.tangiblesoftwaresolutions.com/order/order-java-to-cplus.html
-//====================================================================================================
