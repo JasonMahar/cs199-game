@@ -107,10 +107,8 @@ public class GamesController {
         if(gameID == null) {
             throw new InvalidGameInstanceException("Game ID is null");
         }
+
         GameInstance game = games.remove(gameID);
-        if(game == null) {
-            throw new InvalidGameInstanceException("Cannot find game ID");
-        }
 
         return gameID;
     }

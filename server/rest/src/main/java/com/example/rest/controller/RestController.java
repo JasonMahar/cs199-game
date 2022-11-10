@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.*;
 
 import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 import static com.example.model.PlayerData.State.*;
 
@@ -64,28 +66,34 @@ public class RestController {
         GameInstance game;
         try {
             JsonNode publicIDNode = playerID.get("publicID");
+
             if(!publicIDNode.isInt()){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player gameID must be int");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player ID must be a number");
             }
-            
-            int publicID = publicIDNode.asInt();
-            TemplePlayerData player = (TemplePlayerData) playersController.getPlayer(publicID);
+            int playerPublicID = publicIDNode.asInt();
+
+            JsonNode gameNameNode = playerID.get("gameName");
+
+            String gameName;
+
+            if(gameNameNode != null) {
+                gameName = gameNameNode.asText();
+            } else {
+                gameName = GameDesignVars.DEFAULT_GAME_NAME + " " + playerPublicID;
+            }
+
+            TemplePlayerData player = (TemplePlayerData) playersController.getPlayer(playerPublicID);
 
             int gameID = gamesController.createGame(player);
 
-     
             game = gamesController.getGame(gameID);
+            
+            game.setGameName(gameName);
+
             game.setGameState(GameInstance.GameState.GAME_LOBBY);
 
-            String gameName = player.getGameName();
-            if(gameName != null) {
-                game.setGameName(gameName);
-            }
-            else {
-                game.setGameName(GameDesignVars.DEFAULT_GAME_NAME + " " + game.getGameID());
-            }
-
             game.addPlayer(player);
+
             player.setState(IN_LOBBY);
 
         } catch (InvalidPlayerDataException ex) {
@@ -118,7 +126,7 @@ public class RestController {
         try {
 
             JsonNode publicIDNode = playerID.get("publicID");
-            PrintUtils.green("JsonNode publicIDNode = playerID.get(\"publicID\");");
+    
             if (publicIDNode == null) {
                 throw new Exception("MustCreateGameUsingPlayerPublicIDException");
             }
@@ -126,10 +134,10 @@ public class RestController {
             int publicID;
             if (publicIDNode.isInt()) {
                 publicID = playerID.get("publicID").asInt();
-                PrintUtils.green("publicID = playerID.get(\"publicID\").asInt()");
+
             } else {
                 publicID = Integer.parseInt(String.valueOf(playerID.get("publicID")));
-                PrintUtils.green("Integer.parseInt(String.valueOf(playerID.get(\"publicID\"))");
+
             }
 
             game = gamesController.getGame(gameID);
@@ -161,18 +169,24 @@ public class RestController {
 
         try {
             GameInstance game = gamesController.getGame(gameID);
-            if (game.getPlayers().size() == 1) {
-                game.getPlayer(playerID); // remove last player from game instance
-
-                playersController.removePlayer(playerID); // remove player from players controller
-                gamesController.removePlayer(gameID, playerID);
-                gamesController.removeGame(gameID);
-
-                return null;
-            }
-            else {
-                gamesController.removePlayer(gameID, playerID);
+            
+            if (game.getPlayers().size() <= 1) {
                 playersController.removePlayer(playerID);
+                gamesController.removeGame(gameID);
+            }
+
+            else {
+                TemplePlayerData player = (TemplePlayerData) game.getPlayer(playerID);
+                playersController.removePlayer(playerID);
+                gamesController.removePlayer(gameID, playerID);
+                if (player.isGameOwner()) {
+
+                    ((TemplePlayerData) new ArrayList<>(game
+                            .getPlayers()
+                            .values())
+                            .get(0))
+                            .setIsGameOwner(true);
+                }
             }
 
         } catch (InvalidGameInstanceException ex) {
@@ -181,7 +195,8 @@ public class RestController {
 
         return gamesController.getAllGames();
     }
-    
+
+
     // owner of the room clicks Start Game button or Game Ends, etc
     // 		(for this first iteration, everyone in the lobby has Start Game privileges,
     //		since we're skipping the CreateGame step and there's only one GameID to JoinGame)
@@ -235,6 +250,30 @@ public class RestController {
         return game;
     }
 
+//    @RequestMapping(value = "/game/{gameID}/player/{playerID}", method=RequestMethod.PUT)
+//    public ResponseEntity<?> getSomething(@PathVariable("gameID") String gameID, @PathVariable("playerID") String playerID) {
+//
+//    }
+
+    @PutMapping("/game/{gameID}/player/{playerID}")
+    public ResponseEntity<?> updateGameName(@PathVariable("gameID") Integer gameID, @PathVariable("playerID") Integer playerID, @RequestBody String gameName) {
+        if(gameID == null || gameID == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found");
+        }
+        TemplePlayerData player = (TemplePlayerData) playersController.getPlayer(playerID);
+        if(!player.isGameOwner()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN, HttpStatus.valueOf("Only Game owner can change game name"));
+        }
+        GameInstance game = null;
+        try {
+            game = gamesController.getGame(gameID);
+            game.setGameName(gameName);
+        } catch (InvalidGameInstanceException e) {
+            throw new RuntimeException(e);
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED, HttpStatus.valueOf("New game name: " + game.getGameName()));
+    }
+
 
     // Accepts a game id, sets player and game state to entering game.
     // returns a GameInstance
@@ -261,7 +300,7 @@ public class RestController {
         return game;
     }
 
-    
+
     /* updatePlayer
      *
      * updates a player's data for the game with gameID.
@@ -272,14 +311,19 @@ public class RestController {
     public GameInstance updatePlayer(@PathVariable Integer gameID, @RequestBody TemplePlayerData player) throws Exception {
 
         GameInstance game;
-
+        PlayerData playerData;
         try {
             game = gamesController.getGame(gameID);
 
-            PlayerData playerData = playersController.getPlayer(player.getPublicID());
-
-            playerData.setName(player.getName());
-
+            playerData = playersController.getPlayer(player.getPublicID());
+            // update a player's name and state
+            if(player.getName() != null) {
+                playerData.setName(player.getName());
+            }
+            if(player.getState() != null) {
+                playerData.setState(player.getState());
+            }
+             // update public/private keys?
             playersController.updatePlayer(playerData);
 
         } catch (InvalidGameInstanceException ex) {
@@ -287,7 +331,7 @@ public class RestController {
         } catch (InvalidPlayerDataException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found", ex);
         }
-
+        playerData.setName(player.getName());
         return game;
     }
 
@@ -329,7 +373,7 @@ public class RestController {
     }
 
 
-    /* getPlayer
+        /* getPlayer
      *
      * gets player identified by id passed in
      */

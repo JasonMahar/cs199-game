@@ -2,22 +2,46 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
-    id 'war'
+//    id 'war'
 }
 
 group 'com.example'
 version '0.0.1-SNAPSHOT'
 
-apply plugin: 'war'
+//apply plugin: 'war'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-configurations {
-    providedRuntime
+//war {
+//    baseName = 'server'
+//    version = '0.0.1-SNAPSHOT'
+//}
+
+bootJar {
+    destinationDirectory = file("../libs")
+    baseName = 'rest-controller'
+    version = '0.0.1-SNAPSHOT'
 }
+
+tasks.named("bootJar") {
+    manifest {
+        attributes 'Start-Class': 'com.example.rest.ServerApplication'
+    }
+}
+
+tasks.register('printProps') {
+    doLast {
+        println commandLineProjectProp
+        println gradlePropertiesProp
+        println systemProjectProp
+        println System.metaPropertyValues
+        println System.properties['system']
+    }
+}
+
 
 repositories {
     mavenCentral()
@@ -32,23 +56,16 @@ configurations {
 }
 
 dependencies {
+    implementation(project(":model"))
 
-    implementation( project(":internal-module"))
-
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0-rc3'
+//    implementation(files("internal-module/libs/internal-module-0.0.1-SNAPSHOT.jar"))
+//    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0-rc3'
 
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
     implementation ('org.springframework.boot:spring-boot-starter-web')
-
     testImplementation ('org.springframework.boot:spring-boot-starter-test')
 }
-
-war {
-    baseName = 'server'
-    version = '0.0.1-SNAPSHOT'
-}
-
 test {
     useJUnitPlatform()
 }
