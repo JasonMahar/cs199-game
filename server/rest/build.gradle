@@ -2,31 +2,31 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
-//    id 'war'
+    id 'war'
 }
 
 group 'com.example'
 version '0.0.1-SNAPSHOT'
 
-//apply plugin: 'war'
+apply plugin: 'war'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-//war {
-//    baseName = 'server'
-//    version = '0.0.1-SNAPSHOT'
-//}
-
-bootJar {
-    destinationDirectory = file("../libs")
+war {
     baseName = 'rest-controller'
     version = '0.0.1-SNAPSHOT'
 }
 
-tasks.named("bootJar") {
+//bootJar {
+//    destinationDirectory = file("../libs")
+//    baseName = 'rest-controller'
+//    version = '0.0.1-SNAPSHOT'
+//}
+
+tasks.named("bootWar") {
     manifest {
         attributes 'Start-Class': 'com.example.rest.ServerApplication'
     }
@@ -58,14 +58,13 @@ configurations {
 dependencies {
     implementation(project(":model"))
 
-//    implementation(files("internal-module/libs/internal-module-0.0.1-SNAPSHOT.jar"))
-//    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0-rc3'
-
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
     implementation ('org.springframework.boot:spring-boot-starter-web')
+
     testImplementation ('org.springframework.boot:spring-boot-starter-test')
 }
+
 test {
     useJUnitPlatform()
 }
