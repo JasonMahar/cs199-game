@@ -1,0 +1,54 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group 'com.example'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'war'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+configurations {
+    providedRuntime
+}
+
+repositories {
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper){
+    gradleVersion = '7.5.1'
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+
+    implementation( project(":internal-module"))
+
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0-rc3'
+
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
+    implementation ('org.springframework.boot:spring-boot-starter-web')
+
+    testImplementation ('org.springframework.boot:spring-boot-starter-test')
+}
+
+war {
+    baseName = 'server'
+    version = '0.0.1-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}
