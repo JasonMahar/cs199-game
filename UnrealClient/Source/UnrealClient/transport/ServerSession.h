@@ -12,6 +12,8 @@
 UCLASS(minimalapi, Blueprintable)
 class UNREALCLIENT_API ServerSession
 {
+	GENERATED_BODY()
+
 public:
 	ServerSession();
 	~ServerSession();
