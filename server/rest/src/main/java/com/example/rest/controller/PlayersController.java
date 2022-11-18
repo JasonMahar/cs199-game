@@ -39,7 +39,7 @@ public class PlayersController {
         UUID privateKey = UUID.randomUUID();
         player.setPrivateID(privateKey);
 
-		players.put(publicKey, player);
+        players.put(publicKey, player);
         return publicKey;
     }
 
