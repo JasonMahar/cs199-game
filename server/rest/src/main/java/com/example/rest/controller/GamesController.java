@@ -1,6 +1,7 @@
 package com.example.rest.controller;
 
 import com.example.model.*;
+<<<<<<< HEAD
 import com.example.rest.exceptions.*;
 import org.springframework.http.*;
 import org.springframework.web.server.*;
@@ -62,11 +63,49 @@ public class GamesController {
 
 
     public Integer createGame() throws Exception {
+=======
+import com.example.util.*;
+import org.slf4j.*;
+
+import java.util.*;
+
+
+public class GamesController {
+
+    private static HashMap<Integer, GameInstance> games;
+
+    static {
+        games = new HashMap<>();
+    }
+
+    /*
+     * normally createGame() should be used, which creates a unique ID/key
+     * but this can be used to create a specific static "game" to hold players, e.g. the game lobby
+     */
+    public static Integer createGame(Integer key) throws Exception {
+        // NOTE: there is only 1 game for this first iteration so could
+        //		potentially re-use key/ID == GameDesignVars.GAME_LOBBY_ID
+        GameInstance game = new GameInstance(GameInstance.GameState.GAME_LOBBY, key , null);
+        games.put(key, game);
+        return key;
+    }
+
+    public static Integer createGame(PlayerData player, int key) throws Exception {
+        Map<Integer, PlayerData> map = new HashMap<>();
+        map.put(player.getPublicID(), player);
+        GameInstance game = new GameInstance(GameInstance.GameState.GAME_LOBBY, key ,  map, player);
+        games.put(key, game);
+        return key;
+    }
+
+    public static Integer createGame() throws Exception {
+>>>>>>> develop
         Integer key = createNewKey();
 
         return createGame(key);
     }
 
+<<<<<<< HEAD
     public Integer createGame(TemplePlayerData gameOwner) throws Exception {
         Integer key = createNewKey();
 
@@ -74,6 +113,9 @@ public class GamesController {
     }
 
     private Integer createNewKey() {
+=======
+    private static Integer createNewKey() {
+>>>>>>> develop
         int key = 1;
         while(games.containsKey(key) ) {
             key = new Random().nextInt();
@@ -82,6 +124,7 @@ public class GamesController {
     }
 
 
+<<<<<<< HEAD
     public Collection<GameInstance> getAllGames() {
         if(games == null || games.size() == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No game instances found");
@@ -111,11 +154,36 @@ public class GamesController {
         GameInstance game = games.remove(gameID);
 
         return gameID;
+=======
+    public static Integer createNewGame() throws Exception {
+
+        Integer key = createNewKey();
+
+        return createGame(key);
+    }
+
+    public Collection<GameInstance> getAllGames() {
+        if(games == null || games.size() == 0) {
+            return null;
+        }
+        return games.values();
+    }
+
+    public GameInstance getGame(Integer ID) {
+        GameInstance game = games.get(ID);
+        return games.get(ID);
+    }
+
+    public GameInstance removeGame(Integer ID) {
+
+        return games.remove(ID);
+>>>>>>> develop
     }
 
     // Add/Update/Remove Players:
 
     public boolean addPlayer(Integer gameID, PlayerData player) throws Exception {
+<<<<<<< HEAD
         if(gameID == null) {
             throw new InvalidGameInstanceException("Game ID is null");
         }
@@ -124,15 +192,26 @@ public class GamesController {
         if(game == null) {
             throw new InvalidGameInstanceException("Cannot find Game ID");
         }
+=======
+
+        // enforce maximum players allowed into a game or lobby at a time
+        GameInstance game = getGame(gameID);
+>>>>>>> develop
 
         if(game.getPlayers().size() >= GameDesignVars.MAX_PLAYERS_PER_GAME ) {
             return false;
         }
 
+<<<<<<< HEAD
+=======
+        boolean added = game.addPlayer(player);
+
+>>>>>>> develop
         return game.addPlayer(player);
     }
 
     public boolean updatePlayer(Integer gameID, PlayerData player) throws Exception {
+<<<<<<< HEAD
         if(gameID == null) {
             throw new InvalidGameInstanceException("Game ID is null");
         }
@@ -149,6 +228,16 @@ public class GamesController {
             throw new InvalidGameInstanceException("Cannot find Game ID");
         }
         GameInstance game = getGame(gameID);
+=======
+
+        GameInstance game = getGame(gameID);
+        return game.updatePlayer((TemplePlayerData) player);
+    }
+
+    public boolean removePlayer(int gameId, int publicPlayerId) {
+
+        GameInstance game = getGame(gameId);
+>>>>>>> develop
         return game.removePlayer(publicPlayerId);
     }
 

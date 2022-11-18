@@ -1,9 +1,11 @@
 package com.example.rest.controller;
 
 import com.example.model.*;
+<<<<<<< HEAD
 import com.example.rest.exceptions.*;
 import com.example.util.*;
 import com.fasterxml.jackson.databind.*;
+import org.slf4j.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.*;
@@ -13,10 +15,24 @@ import java.util.function.*;
 import java.util.stream.*;
 
 import static com.example.model.PlayerData.State.*;
+=======
+import com.example.util.*;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
+import java.util.stream.*;
+
+import static com.example.model.PlayerData.State.IN_LOBBY;
+import static com.example.model.PlayerData.State.MAIN_MENU;
+>>>>>>> develop
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestController {
+<<<<<<< HEAD
+
+    Logger logger = LoggerFactory.getLogger(RestController.class);
     private static final GamesController gamesController;
     private static final PlayersController playersController;
 
@@ -40,22 +56,33 @@ public class RestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found");
         }
 
-        TemplePlayerData newPlayer;
+        TemplePlayerData newPlayer = null;
         try {
             Integer ID = playersController.createPlayer(name);
             newPlayer = (TemplePlayerData) playersController.getPlayer(ID);
 
         } catch (InvalidPlayerDataException ex) {
+            RequestLogging.logInvalidPlayer(logger, ex);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player Not Found", ex);
         }
         newPlayer.setState(PLAYER_CREATED);
+        logger.info("Created player: " + newPlayer);
         return newPlayer;
+=======
+    private static GamesController gamesController;
+    private static PlayersController playersController;
+
+    static {
+        gamesController = new GamesController();
+        playersController = new PlayersController();
+>>>>>>> develop
     }
 
 
     /* createGame
      *
      * creates and returns a GameInstance
+<<<<<<< HEAD
      * accepts a Player's gameID. If the gameID is in the playersMap,
      * Get the player, create a new game, and set the player as game owner.
      */
@@ -97,10 +124,39 @@ public class RestController {
             player.setState(IN_LOBBY);
 
         } catch (InvalidPlayerDataException ex) {
+            RequestLogging.logInvalidPlayer(logger, ex);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found", ex);
         } catch (InvalidGameInstanceException ex) {
+            RequestLogging.logInvalidGame(logger, ex);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found", ex);
         }
+        logger.info("Created game: " + game);
+=======
+     * accepts a Player's ID. If the ID is in the playersMap,
+     * Get the player, create a new game, and set the player as game owner.
+     */
+    @PostMapping("/game")
+    public GameInstance createGame(@RequestBody TemplePlayerData newPlayer
+    ) throws Exception {
+        GameInstance game;
+        if (newPlayer.getPublicID() == 0) {
+            throw new Exception("PlayerIdIsZeroException");
+        }
+        try {
+            
+            int id = GamesController.createGame();
+            game = gamesController.getGame(id);
+            
+            PlayerData player = PlayersController.getPlayer(newPlayer.getPublicID());
+            game.addPlayer(player);
+
+            game.setGameState(GameInstance.GameState.GAME_LOBBY);
+            player.setState(IN_LOBBY);
+
+        } catch (Exception e) {
+            throw new RuntimeException("PlayerDoesNotExistException {}", e);
+        }
+>>>>>>> develop
         return game;
     }
 
@@ -115,21 +171,27 @@ public class RestController {
     @PostMapping("/game/{gameID}")
     public GameInstance joinGame(
             @PathVariable Integer gameID,
+<<<<<<< HEAD
             @RequestBody JsonNode playerID) throws Exception {
 
+=======
+            @RequestBody TemplePlayerData player) throws Exception {
+        int publicId = player.getPublicID();
+
+        if (publicId == 0) {
+            throw new Exception("InvalidPlayerIdException");
+        }
+>>>>>>> develop
         if (gameID == null) {
             throw new Exception("InvalidGameIdException");
         }
 
+<<<<<<< HEAD
         GameInstance game = null;
 
         try {
 
             JsonNode publicIDNode = playerID.get("publicID");
-    
-            if (publicIDNode == null) {
-                throw new Exception("MustCreateGameUsingPlayerPublicIDException");
-            }
 
             int publicID;
             if (publicIDNode.isInt()) {
@@ -137,25 +199,69 @@ public class RestController {
 
             } else {
                 publicID = Integer.parseInt(String.valueOf(playerID.get("publicID")));
-
             }
 
             game = gamesController.getGame(gameID);
+
             if (!game.isFull()) {
                 TemplePlayerData joiningPlayer = (TemplePlayerData) playersController.getPlayer(publicID);
                 game.addPlayer(joiningPlayer);
                 joiningPlayer.setState(IN_LOBBY);
+                logger.info("Added playerID: {} to gameID: {}", joiningPlayer.getPublicID(), game.getGameID());
             }
 
         } catch (InvalidPlayerDataException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found", ex);
         } catch (InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found", ex);
+        } catch (Exception e) {
+            RequestLogging.logInvalidRequest(logger, e);
         }
-        PrintUtils.green("games getPlayers : " + game.getPlayers().size());
+        
         return game;
     }
 
+=======
+        GameInstance game;
+        try {
+            game = gamesController.getGame(gameID);
+
+            if(!game.isFull()) {
+                
+                TemplePlayerData joiningPlayer = (TemplePlayerData) PlayersController.getPlayer(publicId);
+                joiningPlayer.setState(PlayerData.State.JOINING_GAME);
+                game.addPlayer(joiningPlayer
+                );
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return game;
+    }
+
+    /* createPlayer
+     *
+     * accepts a name
+     * returns a Player containing created ids for:
+     * PrivateID set for a player's own use with the server
+     * PublicID set for opponents to refer to the player
+     */
+    @PostMapping("/player")
+    public PlayerData createPlayer(
+            @RequestParam(value = "name", defaultValue = "") String name) throws Exception {
+
+        PlayerData newPlayer;
+        try {
+            Integer ID = PlayersController.createPlayer(name);
+            newPlayer = PlayersController.getPlayer(ID);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return newPlayer;
+    }
+
+>>>>>>> develop
 
     /* leaveGame
      *
@@ -167,6 +273,7 @@ public class RestController {
     @DeleteMapping("/game/{gameID}/{playerID}")
     public Collection<GameInstance> leaveGame(@PathVariable Integer gameID, @PathVariable Integer playerID) {
 
+<<<<<<< HEAD
         try {
             GameInstance game = gamesController.getGame(gameID);
             
@@ -197,6 +304,24 @@ public class RestController {
     }
 
 
+=======
+        GameInstance game = gamesController.getGame(gameID);
+
+        if(game.getPlayers().size() == 1) {
+            game.getPlayer(playerID); // remove last player from game instance
+
+            PlayersController.removePlayer(playerID); // remove player from players controller
+            gamesController.removePlayer(gameID, playerID);
+            gamesController.removeGame(gameID);
+            return null;
+        }
+        else {
+            gamesController.removePlayer(gameID, playerID);
+            return gamesController.getAllGames();
+        }
+    }
+    
+>>>>>>> develop
     // owner of the room clicks Start Game button or Game Ends, etc
     // 		(for this first iteration, everyone in the lobby has Start Game privileges,
     //		since we're skipping the CreateGame step and there's only one GameID to JoinGame)
@@ -250,6 +375,7 @@ public class RestController {
         return game;
     }
 
+<<<<<<< HEAD
 //    @RequestMapping(value = "/game/{gameID}/player/{playerID}", method=RequestMethod.PUT)
 //    public ResponseEntity<?> getSomething(@PathVariable("gameID") String gameID, @PathVariable("playerID") String playerID) {
 //
@@ -274,18 +400,27 @@ public class RestController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED, HttpStatus.valueOf("New game name: " + game.getGameName()));
     }
 
+=======
+>>>>>>> develop
 
     // Accepts a game id, sets player and game state to entering game.
     // returns a GameInstance
     @PutMapping("/startGame/{gameID}")
     public GameInstance startGame(@PathVariable Integer gameID) throws Exception {
+<<<<<<< HEAD
 
+=======
+        if(gameID == 0) {
+            throw new Exception("InvalidGameIdException");
+        }
+>>>>>>> develop
         GameInstance game;
         try {
             game = gamesController.getGame(gameID);
 
             game.setGameState(GameInstance.GameState.ENTERING_GAME);
 
+<<<<<<< HEAD
             if (game.getPlayers().size() <= 1) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Minimum players to start a game is 2");
             }
@@ -301,6 +436,22 @@ public class RestController {
     }
 
 
+=======
+            if(game.getPlayers().size() <= 1){
+                throw new Exception("NotEnoughPlayersToPlayException");
+            }
+            // temporary state set to running just to make sure state is changing to expected value
+            for (PlayerData player : game.getPlayers().values()) {
+                player.setState(PlayerData.State.ENTERING_GAME);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e); // GameNotFoundException
+        }
+        return game;
+    }
+
+    
+>>>>>>> develop
     /* updatePlayer
      *
      * updates a player's data for the game with gameID.
@@ -309,6 +460,7 @@ public class RestController {
      */
     @PutMapping("/player/{gameID}")
     public GameInstance updatePlayer(@PathVariable Integer gameID, @RequestBody TemplePlayerData player) throws Exception {
+<<<<<<< HEAD
 
         GameInstance game;
         PlayerData playerData;
@@ -332,6 +484,30 @@ public class RestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found", ex);
         }
         playerData.setName(player.getName());
+=======
+        if (gameID == null) {
+            throw new Exception("Game ID is null");
+        }
+
+        if (player == null || player.getPublicID() == 0) {
+            throw new Exception("Player ID is null or Player ID in invalid");
+        }
+        GameInstance game;
+
+        try {
+            game = gamesController.getGame(gameID);
+
+            PlayerData playerData = PlayersController.getPlayer(player.getPublicID());
+
+            playerData.setName(player.getName());
+
+            PlayersController.updatePlayer(playerData);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+>>>>>>> develop
         return game;
     }
 
@@ -350,14 +526,26 @@ public class RestController {
 
 
     @GetMapping("/game/{id}")
-    public GameInstance getGame(@PathVariable String id) throws Exception {
+<<<<<<< HEAD
+    public GameInstance getGame(@PathVariable Integer id) throws Exception {
 
         GameInstance game;
         try {
-            game = gamesController.getGame(Integer.parseInt(id));
+            game = gamesController.getGame(id);
 
         } catch(InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found", ex);
+=======
+    public GameInstance getGame(@PathVariable String id) throws Exception {
+        if (id == null || id.hashCode() == "".hashCode()) {
+            throw new Exception("NullGameIDException");
+        }
+        GameInstance game;
+        try {
+            game = gamesController.getGame(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+>>>>>>> develop
         }
 
         return game;
@@ -369,29 +557,100 @@ public class RestController {
      */
     @GetMapping("/player")
     public Collection<PlayerData> getAllPlayers() {
+<<<<<<< HEAD
         return playersController.getAllPlayers();
     }
 
+    /* getPlayer
+     *
+     * gets player in specified game
+     */
+    @GetMapping("/game/{gameID}/player/{playerID}")
+    public PlayerData getPlayerInGame(@PathVariable Integer gameID,
+                                      @RequestParam(value = "playerID") Integer playerID) throws Exception {
 
-        /* getPlayer
+        if (gameID == null || gameID == 0) {
+            throw new InvalidGameInstanceException("Game Id is Null");
+        }
+
+        
+        if (playerID == null || playerID == 0) {
+            throw new InvalidPlayerDataException("Invalid Player Data Exception");
+        }
+
+        return gamesController.getGame(gameID).getPlayer(playerID);
+=======
+        return PlayersController.getAllPlayers();
+>>>>>>> develop
+    }
+
+
+    /* getPlayer
      *
      * gets player identified by id passed in
      */
     @GetMapping("/player/{id}")
+<<<<<<< HEAD
+    public PlayerData getPlayer(@RequestParam(value = "id", defaultValue = "0") Integer id) throws Exception {
+
+        if (id == null || id == 0) {
+            throw new Exception("NullPlayerIdException");
+        }
+        
+        return playersController.getPlayer(id);
+    }
+
+
+    @GetMapping("/testlogging")
+    public String testLogging() {
+        if (logger.isWarnEnabled()) {
+            logger.warn("A WARN Message");
+        }
+        if (logger.isErrorEnabled()) {
+            logger.error("An ERROR Message");
+        }
+        if (logger.isInfoEnabled()) {
+            logger.info("An INFO Message");
+        }
+        if (logger.isDebugEnabled()) {
+            logger.debug("A DEBUG Message");
+        }
+
+        if (logger.isTraceEnabled()) {
+            logger.trace("A TRACE Message");
+        }
+        return "test logger";
+    }
+    @GetMapping("/health")
+    public String heartBeat() {
+        StringBuilder sb = new StringBuilder();
+        
+        if (gamesController.getAllGames().size() == 0) {
+            RequestLogging.logNoActiveGames(logger, sb);
+        }
+
+        else {
+            GameInstance game = new ArrayList<>(gamesController.getAllGames()).get(0);
+            sb.append("\nGame gameID: ").append(game.getGameID())
+                    .append("\nGame Name: ").append(game.gameName)
+                    .append("\nGame State: ").append(game.getGameState())
+                    .append("\nNumber of Players: ").append(game.getPlayers().size())
+                    .append("\nPublic Player Ids: ").append(game.getPlayers().keySet());
+        }
+        logger.info(sb.toString());
+        return sb.toString();
+=======
     public Collection<PlayerData> getPlayer(@RequestParam(value = "id", defaultValue = "0") String id) throws Exception {
 
-        if (id == null || id.equals("")) {
+        if (id == null) {
             throw new Exception("NullPlayerIdException");
         }
         Collection<PlayerData> playerList;
-        
         try{
             int playerID = Integer.parseInt(id);
             playerList = new ArrayList<PlayerData>();
-
-            playerList.add(
-                    playersController.getPlayer(playerID)
-            );
+            PlayerData player = PlayersController.getPlayer(playerID);
+            playerList.add(player);
 
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
@@ -400,21 +659,21 @@ public class RestController {
         return playerList;
     }
 
-
     @GetMapping("/health")
     public String heartBeat() {
         GameInstance game = new ArrayList<>(gamesController.getAllGames()).get(0);
         return String.format(
-                "Game gameID: %s%n" +
+                "Game ID: %s%n" +
                         "Game Name: %s%n" +
                         "Game State: %s%n" +
                         "Number of Players: %s%n" +
                         "Public Player Ids: %s",
-                game.getGameID(),
+                game.getID(),
                 game.gameName,
                 game.getGameState(),
-                playersController.getAllPlayers().size(),
+                PlayersController.getAllPlayers().size(),
                 game.getPlayers().keySet());
+>>>>>>> develop
     }
 
 }

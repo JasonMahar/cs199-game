@@ -15,7 +15,10 @@ public final class GameDesignVars {
 
     public static final int DEFAULT_PLAYER_ID = 0;
     public static final String DEFAULT_PLAYER_NAME = "";
+<<<<<<< HEAD:server/model/src/main/java/com/example/model/GameDesignVars.java
     public static final String DEFAULT_GAME_NAME = "Temple Run Game";
+=======
+>>>>>>> develop:server/internal-module/src/main/java/com/example/model/GameDesignVars.java
 
 
     private GameDesignVars() {

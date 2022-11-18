@@ -1,6 +1,7 @@
 package com.example.rest.controller;
 
 import com.example.model.*;
+<<<<<<< HEAD
 import com.example.rest.exceptions.*;
 import org.springframework.http.*;
 import org.springframework.web.server.*;
@@ -34,6 +35,28 @@ public class PlayersController {
             throw new InvalidPlayerDataException("Player name is null or blank");
         }
         int publicKey = createPublicKey();
+=======
+import com.example.util.*;
+import org.slf4j.*;
+
+import java.util.*;
+
+public class PlayersController {
+    private static HashMap<Integer, PlayerData> players;
+    private static final Random rand;
+
+    protected static int gameOwnerPublicId;
+
+
+    static {
+        players = new HashMap<>();
+        rand = new Random();
+    }
+
+    public static Integer createPlayer(String name) {
+
+        int publicKey = createKey();
+>>>>>>> develop
         PlayerData player = new TemplePlayerData(name, publicKey);
 
         UUID privateKey = UUID.randomUUID();
@@ -43,8 +66,13 @@ public class PlayersController {
         return publicKey;
     }
 
+<<<<<<< HEAD
     private static Integer createPublicKey() {
         Random rand = new Random();
+=======
+    private static Integer createKey() {
+
+>>>>>>> develop
         int key = rand.nextInt();
         while(players.containsKey(key) ) {
             key = rand.nextInt();
@@ -56,11 +84,16 @@ public class PlayersController {
         return UUID.randomUUID();
     }
 
+<<<<<<< HEAD
     public PlayerData getPlayer(Integer ID) {
+=======
+    public static PlayerData getPlayer(Integer ID) {
+>>>>>>> develop
 
         return players.get(ID);
     }
 
+<<<<<<< HEAD
     public int addPlayer(PlayerData player) throws InvalidPlayerDataException {
         int publicID = player.getPublicID();
 
@@ -87,6 +120,31 @@ public class PlayersController {
     }
 
     public Collection<PlayerData> getAllPlayers() {
+=======
+    // Add/Update/Remove Players:
+
+    public static boolean addPlayer(PlayerData player) {
+        if(player == null) {
+            return false;
+        }
+
+        return players.put(player.getPublicID(), player) == null;
+    }
+
+    public static boolean updatePlayer(PlayerData player) {
+
+        if( player == null )	return false;
+
+        return players.put(player.getPublicID(), player) != null;
+    }
+
+    public static boolean removePlayer(Integer playerPublicID ) {
+
+        return players.remove(playerPublicID) != null;
+    }
+
+    public static Collection<PlayerData> getAllPlayers() {
+>>>>>>> develop
         return players.values();
     }
 
