@@ -1,4 +1,5 @@
 rootProject.name = 'server'
-include 'internal-module'
-include 'rest'
+include 'rest', 'model'
+
+
 
