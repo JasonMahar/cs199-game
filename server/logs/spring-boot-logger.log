@@ -1,47 +1,21 @@
-2022-11-17 16:27:01,181 INFO org.springframework.boot.StartupInfoLogger [main] Starting ServerApplication using Java 17.0.4 on stews with PID 39552 (C:\Users\seost\repo_tmp\cs199-game\server\rest\build\classes\java\main started by seost in C:\Users\seost\repo_tmp\cs199-game\server)
-2022-11-17 16:27:01,186 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
-2022-11-17 16:27:02,087 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
-2022-11-17 16:27:02,099 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
-2022-11-17 16:27:02,100 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
-2022-11-17 16:27:02,100 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.65]
-2022-11-17 16:27:02,180 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
-2022-11-17 16:27:02,180 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 943 ms
-2022-11-17 16:27:02,444 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
-2022-11-17 16:27:02,471 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
-2022-11-17 16:27:02,478 INFO org.springframework.boot.StartupInfoLogger [main] Started ServerApplication in 1.634 seconds (JVM running for 2.023)
-2022-11-17 16:27:49,719 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-11-17 16:27:49,719 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
-2022-11-17 16:27:49,720 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed initialization in 1 ms
-2022-11-17 16:27:49,748 INFO com.example.rest.controller.RestController [http-nio-8080-exec-2] Created player: { publicID=-1250280561, name=player3, state=PLAYER_CREATED}
-2022-11-17 16:28:03,404 INFO com.example.rest.controller.RestController [http-nio-8080-exec-4] Created game: gameID=1, gameName=custom name, gameOwner=player3, gameState=GAME_LOBBY
-2022-11-17 16:29:14,706 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
-2022-11-17 16:29:15,505 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
-2022-11-17 16:29:15,517 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
-2022-11-17 16:29:15,517 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
-2022-11-17 16:29:15,518 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.65]
-2022-11-17 16:29:15,596 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
-2022-11-17 16:29:15,597 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 852 ms
-2022-11-17 16:29:15,842 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
-2022-11-17 16:29:15,871 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
-2022-11-17 16:29:15,879 INFO org.springframework.boot.StartupInfoLogger [main] Started ServerApplication in 1.46 seconds (JVM running for 1.851)
-2022-11-17 16:31:01,604 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
-2022-11-17 16:31:02,394 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
-2022-11-17 16:31:02,402 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
-2022-11-17 16:31:02,403 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
-2022-11-17 16:31:02,403 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.65]
-2022-11-17 16:31:02,474 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
-2022-11-17 16:31:02,475 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 837 ms
-2022-11-17 16:31:02,712 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
-2022-11-17 16:31:02,732 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
-2022-11-17 16:31:02,739 INFO org.springframework.boot.StartupInfoLogger [main] Started ServerApplication in 1.407 seconds (JVM running for 1.736)
-2022-11-17 16:31:12,176 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-11-17 16:31:12,176 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
-2022-11-17 16:31:12,177 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
-2022-11-17 16:31:12,203 INFO com.example.rest.controller.RestController [http-nio-8080-exec-1] Created player: { publicID=183260115, name=player1, state=PLAYER_CREATED}
-2022-11-17 16:31:21,480 INFO com.example.rest.controller.RestController [http-nio-8080-exec-3] Created game: gameID=1, gameName=custom name, gameOwner=player1, gameState=GAME_LOBBY
-2022-11-17 16:31:26,362 INFO com.example.rest.controller.RestController [http-nio-8080-exec-4] Created player: { publicID=481279892, name=player2, state=PLAYER_CREATED}
-2022-11-17 16:31:28,293 INFO com.example.rest.controller.RestController [http-nio-8080-exec-5] Created player: { publicID=-1015534601, name=player3, state=PLAYER_CREATED}
-2022-11-17 16:31:31,265 INFO com.example.rest.controller.RestController [http-nio-8080-exec-6] Created player: { publicID=1565464951, name=player4, state=PLAYER_CREATED}
-2022-11-17 16:31:39,981 INFO com.example.rest.controller.RestController [http-nio-8080-exec-7] Added playerID: 1565464951 to gameID: 1
-2022-11-17 16:31:56,504 INFO com.example.rest.controller.RestController [http-nio-8080-exec-8] Added playerID: -1015534601 to gameID: 1
-2022-11-17 16:32:11,224 INFO com.example.rest.controller.RestController [http-nio-8080-exec-9] Added playerID: 481279892 to gameID: 1
+2022-11-17 18:44:17,388 INFO org.springframework.boot.StartupInfoLogger [main] Started ServerApplication in 1.478 seconds (JVM running for 1.913)
+2022-11-17 18:44:23,247 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-17 18:44:23,248 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2022-11-17 18:44:23,248 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed initialization in 0 ms
+2022-11-17 18:44:23,280 INFO com.example.rest.controller.RestController [http-nio-8080-exec-2] Created player: { publicID=1300270523, name=player1, state=PLAYER_CREATED}
+2022-11-17 18:44:25,560 INFO com.example.rest.exceptions.RequestLogging [http-nio-8080-exec-3] Invalid Player com.example.rest.exceptions.InvalidPlayerDataException: PlayerData is null
+2022-11-17 18:44:27,293 INFO com.example.rest.controller.RestController [http-nio-8080-exec-4] Created player: { publicID=-925182469, name=player2, state=PLAYER_CREATED}
+2022-11-17 18:44:28,892 INFO com.example.rest.controller.RestController [http-nio-8080-exec-5] Created player: { publicID=-1697504359, name=player3, state=PLAYER_CREATED}
+2022-11-17 18:44:30,837 INFO com.example.rest.controller.RestController [http-nio-8080-exec-6] Created player: { publicID=-120586047, name=player4, state=PLAYER_CREATED}
+2022-11-17 18:45:21,006 INFO com.example.rest.controller.RestController [http-nio-8080-exec-8] Created game: gameID=1, gameName=custom name, gameOwner=player1, gameState=GAME_LOBBY
+2022-11-17 18:45:26,802 INFO com.example.rest.controller.RestController [http-nio-8080-exec-9] Added playerID: -120586047 to gameID: 1
+2022-11-17 18:57:34,191 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-11-17 18:57:35,057 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-11-17 18:57:35,066 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-17 18:57:35,066 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-11-17 18:57:35,067 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-17 18:57:35,131 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-11-17 18:57:35,131 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 897 ms
+2022-11-17 18:57:35,441 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-11-17 18:57:35,476 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-17 18:57:35,485 INFO org.springframework.boot.StartupInfoLogger [main] Started ServerApplication in 1.619 seconds (JVM running for 2.114)
