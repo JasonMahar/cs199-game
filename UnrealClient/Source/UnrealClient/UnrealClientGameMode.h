@@ -17,12 +17,6 @@ public:
 	AUnrealClientGameMode();
 	virtual void StartPlay() override;
 
-	UFUNCTION(BlueprintCallable)
-	void SomePrintFunction();
-
-private:
-	void OnResponseReceived(FHttpRequestPtr request, FHttpResponsePtr response, bool bConnectedSuccessfully);
-
 };
 
 
