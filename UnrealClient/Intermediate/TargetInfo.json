@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "UnrealClient",
+			"Path": "C:\\Users\\localst\\repo\\cs199-game\\UnrealClient\\Source\\UnrealClient.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "UnrealClientEditor",
+			"Path": "C:\\Users\\localst\\repo\\cs199-game\\UnrealClient\\Source\\UnrealClientEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

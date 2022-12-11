@@ -85,11 +85,9 @@ DerivedDataCache/*
 .idea/workspace.xml
 .idea/tasks.xml
 
-
-
 *.iml
 *.ipr
 *.iws
 build/
-.gradle
-*.bat
+buildsrc/build/
+rest/build/
