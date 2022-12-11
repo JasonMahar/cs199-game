@@ -92,8 +92,4 @@ DerivedDataCache/*
 *.iws
 build/
 .gradle
-gradle/
-gradlew
 *.bat
-model/build/
-rest/build/
