@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DAA78AA8-788A-3A1C-A8AD-28638803A322}</ProjectGuid>
+    <ProjectGuid>{AA6DA26E-EB66-3A47-9747-D48366FE35F7}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
     <RootNamespace>UnrealClient</RootNamespace>
     <PlatformToolset>v143</PlatformToolset>
@@ -172,6 +172,8 @@
     <None Include="..\..\UnrealClient.uproject"/>
     <None Include="..\..\Source\UnrealClient.Target.cs"/>
     <None Include="..\..\Source\UnrealClientEditor.Target.cs"/>
+    <None Include="..\..\.gitattributes"/>
+    <None Include="..\..\.gitignore"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
