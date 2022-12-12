@@ -12,7 +12,9 @@ public class GameInstance {
     private int gameID;
 
     private GameState gameState;
+
     public String gameName;
+
     @JsonIgnore
     private PlayerData gameOwner;
 
@@ -172,6 +174,7 @@ public class GameInstance {
     }
 
     public Map<Integer, PlayerData> getPlayers() {
+
         return players;
     }
 

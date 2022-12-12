@@ -9,8 +9,8 @@ public class TemplePlayerData implements PlayerData {
     protected int publicID;
     @JsonIgnore
     private UUID privateID;
-
     protected String name;
+
     protected PlayerData.State state;
 
     @JsonIgnore
@@ -18,7 +18,6 @@ public class TemplePlayerData implements PlayerData {
 
     protected boolean isGameOwner;
 
-    private TemplePlayerData(){}
     public TemplePlayerData(String name, int publicId) {
         this(name, publicId, false);
     }
@@ -36,7 +35,6 @@ public class TemplePlayerData implements PlayerData {
     
     public void setIsGameOwner(boolean isGameOwner) {
         this.isGameOwner = isGameOwner;
-
     }
     public int getPublicID() {
         return this.publicID;

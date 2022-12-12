@@ -44,7 +44,6 @@ public class GamesController {
         return gameID;
     }
 
-
     private Integer createGame(Integer gameID, TemplePlayerData gameOwner) throws Exception {
         if(gameID == null) {
             throw new InvalidGameInstanceException("Game ID is null");
@@ -60,17 +59,16 @@ public class GamesController {
         return gameID;
     }
 
+    public Integer createGame(TemplePlayerData gameOwner) throws Exception {
+        Integer key = createNewKey();
+
+        return createGame(key, gameOwner);
+    }
 
     public Integer createGame() throws Exception {
         Integer key = createNewKey();
 
         return createGame(key);
-    }
-
-    public Integer createGame(TemplePlayerData gameOwner) throws Exception {
-        Integer key = createNewKey();
-
-        return createGame(key, gameOwner);
     }
 
     private Integer createNewKey() {
@@ -81,9 +79,8 @@ public class GamesController {
         return key;
     }
 
-
     public Collection<GameInstance> getAllGames() {
-        if(games == null || games.size() == 0) {
+        if(games == null || games.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No game instances found");
         }
 
@@ -91,19 +88,16 @@ public class GamesController {
     }
 
     public GameInstance getGame(Integer gameID) throws InvalidGameInstanceException {
-        if(gameID == null) {
+
+        if(gameID == null || !games.containsKey(gameID)) {
             throw new InvalidGameInstanceException("Game ID is null");
         }
 
-        GameInstance game = games.get(gameID);
-
-        if(game == null) {
-            throw new InvalidGameInstanceException("Cannot find game ID");
-        }
         return games.get(gameID);
     }
 
     public int removeGame(Integer gameID) throws InvalidGameInstanceException {
+
         if(gameID == null) {
             throw new InvalidGameInstanceException("Game ID is null");
         }
@@ -145,6 +139,7 @@ public class GamesController {
     }
 
     public boolean removePlayer(Integer gameID, int publicPlayerId) throws InvalidGameInstanceException {
+
         if(gameID == null) {
             throw new InvalidGameInstanceException("Cannot find Game ID");
         }

@@ -56,8 +56,10 @@ public class PlayersController {
         return UUID.randomUUID();
     }
 
-    public PlayerData getPlayer(Integer ID) {
-
+    public PlayerData getPlayer(Integer ID) throws InvalidPlayerDataException {
+        if(players.get(ID) == null){
+            throw new InvalidPlayerDataException("Player not found in game");
+        }
         return players.get(ID);
     }
 
@@ -79,11 +81,12 @@ public class PlayersController {
         return publicID;
     }
 
-    public int removePlayer(Integer playerPublicID) {
-        if (players.remove(playerPublicID) == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player not found in game");
+    public PlayerData removePlayer(Integer playerPublicID) throws InvalidPlayerDataException {
+        if (!players.containsKey(playerPublicID)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player not found");
         }
-        return playerPublicID;
+
+        return players.remove(playerPublicID);
     }
 
     public Collection<PlayerData> getAllPlayers() {

@@ -12,8 +12,6 @@ import java.util.*;
 
 public interface PlayerData {
 
-    int MAX_PROJECTILES = 1;
-
     boolean isGameOwner();
 
 

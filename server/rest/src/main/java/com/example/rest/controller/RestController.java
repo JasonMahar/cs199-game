@@ -31,12 +31,11 @@ public class RestController {
     /* createPlayer
      *
      * accepts a name
-     * returns a Player containing created ids for:
-     * PrivateID set for a player's own use with the server
-     * PublicID set for opponents to refer to the player
+     * returns a new TemplePlayerData object
      */
     @PostMapping(path = "/player", produces = "application/json; charset=UTF-8")
     public TemplePlayerData createPlayer(@RequestParam(value = "name", defaultValue = "") String name) throws Exception {
+
         if(name == null || name.equals("")) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found");
         }
@@ -47,7 +46,6 @@ public class RestController {
             newPlayer = (TemplePlayerData) playersController.getPlayer(ID);
 
         } catch (InvalidPlayerDataException ex) {
-            RequestLogging.logInvalidPlayer(logger, ex);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player Not Found", ex);
         }
         newPlayer.setState(PLAYER_CREATED);
@@ -88,10 +86,11 @@ public class RestController {
             player.setState(IN_LOBBY);
 
         } catch (InvalidPlayerDataException ex) {
-            RequestLogging.logInvalidPlayer(logger, ex);
+
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found", ex);
+
         } catch (InvalidGameInstanceException ex) {
-            RequestLogging.logInvalidGame(logger, ex);
+
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found", ex);
         }
 
@@ -126,13 +125,13 @@ public class RestController {
                 joiningPlayer.setState(IN_LOBBY);
                 logger.info("Added playerID: {} to gameID: {}", joiningPlayer.getPublicID(), game.getGameID());
             }
+
         } catch (InvalidPlayerDataException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found", ex);
         } catch (InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found", ex);
-        } catch (Exception e) {
-            RequestLogging.logInvalidRequest(logger, e);
         }
+
         return game;
     }
 
@@ -152,6 +151,7 @@ public class RestController {
             if (game.getPlayers().size() <= 1) {
                 playersController.removePlayer(playerID);
                 gamesController.removeGame(gameID);
+                game = null;
             }
 
             else {
@@ -170,6 +170,9 @@ public class RestController {
 
         } catch (InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game not found", ex);
+
+        } catch (InvalidPlayerDataException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player Not Found", ex);
         }
 
         return gamesController.getAllGames();
@@ -234,68 +237,71 @@ public class RestController {
     /* updatePlayer
      *
      * accepts
-     *  @PathVariable
-     *  @PathVariable
-     *  @RequestBody
+     *  @PathVariable Integer gameID
+     *  @RequestBody TemplePlayerData updatedPlayer that contains updated TemplePlayerData fields
      * replaces a player with playerID from a GameInstance with gameID.
      *
-     * returns
+     * returns all players in specified game
      */
     @PutMapping("/game/{gameID}/player/{playerID}")
     public Collection<PlayerData> updatePlayer(@PathVariable("gameID") Integer gameID,
-                                               @PathVariable("playerID") Integer playerID,
-                                               @RequestBody TemplePlayerData newPlayer) {
-
+                                               @RequestBody TemplePlayerData updatedPlayer) {
+        GameInstance game;
         try {
+            int playerID = updatedPlayer.getPublicID();
 
+            // get player by playerID
             TemplePlayerData player = (TemplePlayerData) playersController.getPlayer(playerID);
 
-            GameInstance game =  gamesController.getGame(gameID);
+            // check if player is in specified gameID
+            game =  gamesController.getGame(gameID);
+            game.getPlayer(playerID);
 
-            playersController.removePlayer(playerID);
-
-            game.removePlayer(playerID);
-
-            if (player.isGameOwner()) {
-
-                Optional<PlayerData> optionalPlayerData = playersController.getAllPlayers().stream().findAny();
-
-                if(optionalPlayerData.isPresent()) {
-                    TemplePlayerData newOwner = (TemplePlayerData) optionalPlayerData.get();
-                    newOwner.setIsGameOwner(true);
-                }
-                TemplePlayerData newP = (TemplePlayerData) playersController.getPlayer(newPlayer.getPublicID());
-                game.addPlayer(newP);
-
+            // update player fields
+            if(updatedPlayer.getName() != null) {
+                player.setName(updatedPlayer.getName());
             }
-        } catch (Exception e) {
-            if (e instanceof ResponseStatusException) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found");
+            if(updatedPlayer.getState() != null) {
+                player.setState(updatedPlayer.getState());
             }
-            throw new RuntimeException(e);
+            if(updatedPlayer.getGameName() != null) {
+                player.setGameName(updatedPlayer.getGameName());
+            }
+
+        } catch (InvalidGameInstanceException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game not found", ex);
+
+        } catch (InvalidPlayerDataException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player Not Found", ex);
         }
 
-        return playersController.getAllPlayers();
+        return game.getPlayers().values();
     }
 
 
-    // Accepts a game id, sets player and game state to entering game.
-    // returns a GameInstance
+    /* startGame
+     *
+     * accepts @PathVariable{gameID} Accepts a game id.
+     * updates GameInstance and TemplePlayerData state's to STARTING_GAME
+     * returns the GameInstance
+     */
     @PutMapping("/startGame/{gameID}")
     public GameInstance startGame(@PathVariable Integer gameID) throws Exception {
 
-        GameInstance game;
+        GameInstance game = null;
         try {
             game = gamesController.getGame(gameID);
+            if(game.getPlayers().size() >= 2) {
 
-            game.setGameState(GameInstance.GameState.ENTERING_GAME);
+                game.setGameState(GameInstance.GameState.ENTERING_GAME);
 
-            if (game.getPlayers().size() <= 1) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Minimum players to start a game is 2");
-            }
+                for (PlayerData player : game.getPlayers().values()) {
+                    player.setState(PlayerData.State.ENTERING_GAME);
+                }
 
-            for (PlayerData player : game.getPlayers().values()) {
-                player.setState(PlayerData.State.ENTERING_GAME);
+            } else {
+                System.out.println("Less than minimum required number of Players to start a game");
+//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Less than minimum required number of Players to start a game");
             }
         } catch (InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found", ex);
@@ -308,21 +314,27 @@ public class RestController {
     //                          GET MAPPING
     //===================================================================================================
 
+    /* /game
+     *
+     * returns all games contained in gamesController
+     */
     @GetMapping("/game")
     public Collection<GameInstance> getAllGames() throws Exception {
-        if (gamesController.getAllGames() == null) {
-            throw new Exception("Empty collection of games");
-        }
+
         return gamesController.getAllGames();
     }
 
-
-    @GetMapping("/game/{id}")
-    public GameInstance getGame(@PathVariable Integer id) throws Exception {
+    /* /game/{id}
+     *
+     * accepts @PathVariable Integer id
+     * returns the specified GameInstance
+     */
+    @GetMapping("/game/{gameID}")
+    public GameInstance getGame(@PathVariable Integer gameID) throws Exception {
 
         GameInstance game;
         try {
-            game = gamesController.getGame(id);
+            game = gamesController.getGame(gameID);
 
         } catch(InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Not Found", ex);
@@ -332,8 +344,9 @@ public class RestController {
     }
 
 
-    /*
-     * gets all players
+    /* getAllPlayers
+     *
+     * returns all players contained in playersController
      */
     @GetMapping("/player")
     public Collection<PlayerData> getAllPlayers() {
@@ -342,7 +355,10 @@ public class RestController {
 
     /* getPlayer
      *
-     * gets player in specified game
+     * accepts
+     * @PathVariable Integer gameID
+     * @PathVariable Integer playerID
+     * returns specified player in specified game
      */
     @GetMapping("/game/{gameID}/player/{playerID}")
     public PlayerData getPlayer(@PathVariable Integer gameID,
@@ -352,27 +368,26 @@ public class RestController {
         TemplePlayerData player;
         try{
             game = gamesController.getGame(gameID);
-
+            TemplePlayerData p = (TemplePlayerData) playersController.getPlayer(playerID);
             player = (TemplePlayerData) game.getPlayer(playerID);
 
         } catch(InvalidGameInstanceException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Instance Not Found");
+        } catch(InvalidPlayerDataException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found");
         }
         return player;
     }
 
     /* getPlayer
      *
-     * gets player identified by id passed in
+     * accepts @PathVariable Integer playerID
+     * returns specified player
      */
-    @GetMapping("/player/{id}")
-    public PlayerData getPlayer(@PathVariable(value = "playerID") Integer id) throws Exception {
+    @GetMapping("/player/{playerID}")
+    public PlayerData getPlayer(@PathVariable(value = "playerID") Integer playerID) throws Exception {
 
-        if (id == null || id == 0) {
-            throw new Exception("NullPlayerIdException");
-        }
-
-        return playersController.getPlayer(id);
+        return playersController.getPlayer(playerID);
     }
 
     @GetMapping("/health")
