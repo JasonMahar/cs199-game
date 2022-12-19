@@ -35,14 +35,17 @@ public interface PlayerData {
     void setState(State var1);
 
     public static enum State {
-        PLAYER_CREATED,
-        MAIN_MENU,
-        IN_LOBBY,
-        JOINING_GAME,
-        ENTERING_GAME,
-        IN_GAME,
-        LEAVING_GAME;
-        private State() {
+        PLAYER_CREATED("PLAYER_CREATED"),
+        MAIN_MENU("MAIN_MENU"),
+        IN_LOBBY("IN_LOBBY"),
+        JOINING_GAME("JOINING_GAME"),
+        ENTERING_GAME("ENTERING_GAME"),
+        IN_GAME("IN_GAME"),
+        LEAVING_GAME("LEAVING_GAME");
+
+        public final String state;
+        private State(String state) {
+            this.state = state;
         }
     }
 }

@@ -211,15 +211,18 @@ public class GameInstance {
     }
 
     public static enum GameState {
-        GAME_LOBBY,
-        GAME_STARTING,
-        ENTERING_GAME,
-        IN_GAME,
-        CLOSING,
+        GAME_LOBBY("GAME_LOBBY"),
+        GAME_STARTING("GAME_STARTING"),
+        ENTERING_GAME("ENTERING_GAME"),
+        IN_GAME("IN_GAME"),
 
-        UNKNOWN;
+        GAME_ENDING("GAME_ENDING"),
+        CLOSING("CLOSING"),
 
-        private GameState() {
+        UNKNOWN("GAME_STARTING");
+        public final String state;
+        private GameState(String state) {
+            this.state = state;
         }
     }
 }

@@ -1,19 +1,32 @@
 package com.example.rest.controller;
 
-import com.example.model.*;
-import com.example.rest.exceptions.*;
-import com.example.util.*;
-import com.fasterxml.jackson.databind.*;
-import org.slf4j.*;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.*;
+import com.example.model.GameDesignVars;
+import com.example.model.GameInstance;
+import com.example.model.PlayerData;
+import com.example.model.TemplePlayerData;
+import com.example.rest.exceptions.InvalidGameInstanceException;
+import com.example.rest.exceptions.InvalidPlayerDataException;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
-import static com.example.model.PlayerData.State.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import static com.example.model.PlayerData.State.IN_LOBBY;
+import static com.example.model.PlayerData.State.PLAYER_CREATED;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -170,9 +183,8 @@ public class RestController {
 
         } catch (InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game not found", ex);
-
-        } catch (InvalidPlayerDataException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player Not Found", ex);
+        } catch (InvalidPlayerDataException e) {
+            throw new RuntimeException(e);
         }
 
         return gamesController.getAllGames();
@@ -187,39 +199,39 @@ public class RestController {
      */
     @PutMapping("/game/{gameID}")
     public GameInstance updateGameState(@PathVariable Integer gameID, @RequestBody GameInstance.GameState state) throws Exception {
-        if (gameID == 0) {
-            throw new Exception("InvalidGameIdException");
-        }
-        if (state == null) {
-            throw new Exception("Invalid");
-        }
 
         GameInstance.GameState gameState;
         PlayerData.State playerState;
 
-        switch(state) {
-            case GAME_LOBBY:
-                gameState = GameInstance.GameState.GAME_LOBBY;
-                playerState = PlayerData.State.IN_LOBBY;
-                break;
-            case GAME_STARTING:
-                gameState = GameInstance.GameState.GAME_STARTING;
-                playerState = PlayerData.State.IN_LOBBY;
-                break;
-            case ENTERING_GAME:
-                gameState = GameInstance.GameState.ENTERING_GAME;
-                playerState = PlayerData.State.ENTERING_GAME;
-                break;
-            case IN_GAME:
-                gameState = GameInstance.GameState.IN_GAME;
-                playerState = PlayerData.State.IN_GAME;
-                break;
-            case CLOSING:
-                gameState = GameInstance.GameState.CLOSING;
-                playerState = PlayerData.State.LEAVING_GAME;
-                break;
-            default:
-                throw new Exception("InvalidStateException");
+        try {
+            switch (state) {
+                case GAME_LOBBY:
+                    gameState = GameInstance.GameState.GAME_LOBBY;
+                    playerState = PlayerData.State.IN_LOBBY;
+                    break;
+                case GAME_STARTING:
+                    gameState = GameInstance.GameState.GAME_STARTING;
+                    playerState = PlayerData.State.IN_LOBBY;
+                    break;
+                case ENTERING_GAME:
+                    gameState = GameInstance.GameState.ENTERING_GAME;
+                    playerState = PlayerData.State.ENTERING_GAME;
+                    break;
+                case IN_GAME:
+                    gameState = GameInstance.GameState.IN_GAME;
+                    playerState = PlayerData.State.IN_GAME;
+                    break;
+                case CLOSING:
+                    gameState = GameInstance.GameState.CLOSING;
+                    playerState = PlayerData.State.LEAVING_GAME;
+                    break;
+                default:
+                    throw new Exception("InvalidStateException");
+            }
+        }catch(InvalidPlayerDataException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player not found", ex);
+        }catch(InvalidGameInstanceException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game not found", ex);
         }
 
 
@@ -270,9 +282,8 @@ public class RestController {
 
         } catch (InvalidGameInstanceException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game not found", ex);
-
-        } catch (InvalidPlayerDataException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Player Not Found", ex);
+        } catch (InvalidPlayerDataException e) {
+            throw new RuntimeException(e);
         }
 
         return game.getPlayers().values();
@@ -324,6 +335,12 @@ public class RestController {
         return gamesController.getAllGames();
     }
 
+    @GetMapping("/gameIDs")
+    public Collection<Integer> getAllGameIds()  {
+
+        return gamesController.getAllGames().stream().map(GameInstance::getGameID).collect(Collectors.toList());
+    }
+
     /* /game/{id}
      *
      * accepts @PathVariable Integer id
@@ -353,6 +370,13 @@ public class RestController {
         return playersController.getAllPlayers();
     }
 
+    @GetMapping("/game/{gameID}/players")
+    public Collection<Integer> getAllPlayersForGame(@PathVariable Integer gameID) throws InvalidGameInstanceException {
+
+        return gamesController.getGame(gameID).getPlayers().values().stream().map(PlayerData::getPublicID).collect(Collectors.toList());
+    }
+
+
     /* getPlayer
      *
      * accepts
@@ -373,8 +397,6 @@ public class RestController {
 
         } catch(InvalidGameInstanceException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game Instance Not Found");
-        } catch(InvalidPlayerDataException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player Not Found");
         }
         return player;
     }
@@ -394,18 +416,13 @@ public class RestController {
     public String heartBeat() {
         StringBuilder sb = new StringBuilder();
 
-        if (gamesController.getAllGames().size() == 0) {
-            RequestLogging.logNoActiveGames(logger, sb);
-        }
+        GameInstance game = new ArrayList<>(gamesController.getAllGames()).get(0);
+        sb.append("\nGame gameID: ").append(game.getGameID())
+                .append("\nGame Name: ").append(game.gameName)
+                .append("\nGame State: ").append(game.getGameState())
+                .append("\nNumber of Players: ").append(game.getPlayers().size())
+                .append("\nPublic Player Ids: ").append(game.getPlayers().keySet());
 
-        else {
-            GameInstance game = new ArrayList<>(gamesController.getAllGames()).get(0);
-            sb.append("\nGame gameID: ").append(game.getGameID())
-                    .append("\nGame Name: ").append(game.gameName)
-                    .append("\nGame State: ").append(game.getGameState())
-                    .append("\nNumber of Players: ").append(game.getPlayers().size())
-                    .append("\nPublic Player Ids: ").append(game.getPlayers().keySet());
-        }
         logger.info(sb.toString());
         return sb.toString();
     }
